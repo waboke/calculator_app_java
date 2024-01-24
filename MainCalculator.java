@@ -52,6 +52,8 @@ class Maincalculator{
             case 4:
                 performDivision(firstNumber, secondNumber);
                 break;
+            default:
+                throw new Exception("Invalid operation");
         }
     }
 }
