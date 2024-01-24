@@ -14,7 +14,7 @@ class Maincalculator{
         // Handle divide by 0 edge case
         if (secondNumber == 0) throw new Exception("Cannot divide by 0");
 
-        System.out.printf("%d / %d = %d", firstNumber, secondNumber, firstNumber+secondNumber);
+        System.out.printf("%d / %d = %d", firstNumber, secondNumber, firstNumber/secondNumber);
     }
 
 
@@ -22,34 +22,46 @@ class Maincalculator{
         // Using Scanner for Getting Input from User
         Scanner in = new Scanner(System.in);
 
-        // Accept first number from command line
-        System.out.println("Please enter first number");
-        int firstNumber = Integer.parseInt(in.nextLine());
+        int firstNumber, secondNumber;
 
-        // Accept second number from command line
-        System.out.println("Please enter second number");
-        int secondNumber = Integer.parseInt(in.nextLine());
+        try {
+            // Accept first number from command line
+            System.out.println("Please enter first number");
+            firstNumber = Integer.parseInt(in.nextLine());
 
-        System.out.println("Select operation");
-        System.out.println("1. Addition");
-        System.out.println("2. Subtraction");
-        System.out.println("3. Multiplication");
-        System.out.println("4. Division");
+            // Ensure provided number is a two-digit number
+            if (firstNumber < 10 || firstNumber > 99) {
+                throw new Exception("Please provide a two digit number");
+            }
+
+            // Accept second number from command line
+            System.out.println("Please enter second number");
+            secondNumber = Integer.parseInt(in.nextLine());
+
+            // Ensure provided number is a two-digit number
+            if (secondNumber < 10 || secondNumber > 99) {
+                throw new Exception("Please provide a two digit number");
+            }
+        } catch (NumberFormatException err) {
+            throw new Exception("Please enter a valid number");
+        }
+
+        System.out.println("Select operation by entering one of the following: (+,-,*,/)");
 
         // Obtain operation selection
-        int selection = Integer.parseInt(in.nextLine());
+        String selection = in.nextLine();
 
         switch (selection) {
-            case 1:
+            case "+":
                 performAddition(firstNumber, secondNumber);
                 break;
-            case 2:
+            case "-":
                 performSubtraction(firstNumber, secondNumber);
                 break;
-            case 3:
+            case "*":
                 performMultiplication(firstNumber, secondNumber);
                 break;
-            case 4:
+            case "/":
                 performDivision(firstNumber, secondNumber);
                 break;
             default:
