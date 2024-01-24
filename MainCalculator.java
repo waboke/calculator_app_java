@@ -1,20 +1,20 @@
 import java.util.Scanner;
 
 class Maincalculator{
-    public static void performAddition(int firstNumber, int secondNumber) {
-        System.out.printf("%d + %d = %d", firstNumber, secondNumber, firstNumber+secondNumber);
+    public static void performAddition(double firstNumber, double secondNumber) {
+        System.out.printf("%f + %f = %f", firstNumber, secondNumber, firstNumber+secondNumber);
     }
-    public static void performSubtraction(int firstNumber, int secondNumber) {
-        System.out.printf("%d - %d = %d", firstNumber, secondNumber, firstNumber-secondNumber);
+    public static void performSubtraction(double firstNumber, double secondNumber) {
+        System.out.printf("%f - %f = %f", firstNumber, secondNumber, firstNumber-secondNumber);
     }
-    public static void performMultiplication(int firstNumber, int secondNumber) {
-        System.out.printf("%d x %d = %d", firstNumber, secondNumber, firstNumber*secondNumber);
+    public static void performMultiplication(double firstNumber, double secondNumber) {
+        System.out.printf("%f x %f = %f", firstNumber, secondNumber, firstNumber*secondNumber);
     }
-    public static void performDivision(int firstNumber, int secondNumber) throws Exception {
+    public static void performDivision(double firstNumber, double secondNumber) throws Exception {
         // Handle divide by 0 edge case
         if (secondNumber == 0) throw new Exception("Cannot divide by 0");
 
-        System.out.printf("%d / %d = %d", firstNumber, secondNumber, firstNumber/secondNumber);
+        System.out.printf("%f / %f = %f", firstNumber, secondNumber, firstNumber/secondNumber);
     }
 
 
@@ -22,12 +22,12 @@ class Maincalculator{
         // Using Scanner for Getting Input from User
         Scanner in = new Scanner(System.in);
 
-        int firstNumber, secondNumber;
+        double firstNumber, secondNumber;
 
         try {
             // Accept first number from command line
             System.out.println("Please enter first number");
-            firstNumber = Integer.parseInt(in.nextLine());
+            firstNumber = Double.parseDouble(in.nextLine());
 
             // Ensure provided number is a two-digit number
             if (firstNumber < 10 || firstNumber > 99) {
@@ -36,7 +36,7 @@ class Maincalculator{
 
             // Accept second number from command line
             System.out.println("Please enter second number");
-            secondNumber = Integer.parseInt(in.nextLine());
+            secondNumber = Double.parseDouble(in.nextLine());
 
             // Ensure provided number is a two-digit number
             if (secondNumber < 10 || secondNumber > 99) {
