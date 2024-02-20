@@ -12,7 +12,7 @@ Scanner scanner = new Scanner(System.in);
                 case '-' -> num1 - num2;
                 case '*' -> num1 * num2;
                 case '/' -> (num2 == 0) ? throw new IllegalArgumentException("Cannot divide by zero.") : num1 / num2;
-                default -> throw new IllegalArgumentException("Invalid operator.");
+            default -> throw new IllegalArgumentException("Invalid operator.");
             };
 
             System.out.println("Result: " + result);
