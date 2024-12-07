@@ -29,7 +29,7 @@ public class SimpleCalculator {
                 if (num2 != 0) {
                     result = num1 / num2;
                 } else {
-                    System.out.println("Error: Division by zero is undefined.");
+                    System.out.println("Error: Division by zero is always undefined.");
                     return;
                 }
                 break;
