@@ -1,0 +1,68 @@
+
+import java.util.Scanner;
+
+public class MyCalculator {
+    public static void main(String[] args) {
+        // Declare variables to store user inputs
+        double num1, num2, result = 0;
+        char operator;
+        boolean validOperation = true; // A flag to check for valid operations
+
+        // Create a scanner object for user input
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt the user for inputs
+        System.out.println("Welcome to U23MTE1059 Calculator App!");
+        
+        // Loop to ensure a valid operator is entered
+        while (true) {
+            System.out.print("Enter an operator (+(add), -(subtract), *(multiply), /(quotient)): ");
+            operator = scanner.next().charAt(0);
+
+            // Check if the operator is valid
+            if (operator == '+' || operator == '-' || operator == '*' || operator == '/') {
+                break; // Exit the loop if a valid operator is entered
+            } else {
+                System.out.println("Error: Invalid operator. Please enter a valid operator.");
+            }
+        }
+
+        // Get the numbers from the user
+        System.out.print("Enter the first number: ");
+        num1 = scanner.nextDouble();
+
+        System.out.print("Enter the second number: ");
+        num2 = scanner.nextDouble();
+
+        // Use 'switch' to handle operator cases
+        switch (operator) {
+            case '+':
+                result = num1 + num2; // Use 'case' to handle addition
+                break;
+            case '-':
+                result = num1 - num2; // Use 'case' to handle subtraction
+                break;
+            case '*':
+                result = num1 * num2; // Use 'case' to handle multiplication
+                break;
+            case '/':
+                if (num2 != 0) { // Use 'if' to prevent division by zero
+                    result = num1 / num2;
+                } else {
+                    System.out.println("Error: Division by zero is not allowed.");
+                    validOperation = false; // Use 'false' to mark invalid operations
+                }
+                break;
+            default:
+                validOperation = false; // This case won't be reached due to the validation loop
+        }
+
+        // Use 'if' to check and display the result if the operation was valid
+        if (validOperation) {
+            System.out.println("The result is: " + result);
+        }
+
+        // Close the scanner
+        scanner.close();
+    }
+}
