@@ -7,7 +7,7 @@ public class Calculator {
         Scanner scanner = new Scanner(System.in);
 
         // Display the calculator menu
-        System.out.println("Welcome to farida's Calculator!");
+        System.out.println("Welcome to the farida's Calculator!");
         System.out.println("Enter first number: ");
         double num1 = scanner.nextDouble();
 
