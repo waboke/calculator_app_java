@@ -34,7 +34,7 @@ your commits need to include the following line using the name and e-mail
 address you used to sign the OCA:
 
 ```text
-Signed-off-by: Farida Salman <fareedahsalman@gmail.com>
+Signed-off-by: your name <you@example.org>
 ```
 
 This can be automatically added to pull requests by committing with `--sign-off`
