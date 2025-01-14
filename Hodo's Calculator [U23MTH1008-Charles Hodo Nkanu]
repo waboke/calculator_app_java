@@ -1,0 +1,84 @@
+import java.util.Scanner;
+public class Calculator {
+    
+    public static void main(String[] args) {
+        
+       char operator; 
+        String again;
+         double num1, num2;// declared my variables
+        
+        
+    
+      /*created an object to accept if 
+       * the user wants to continue the operation */
+        Scanner Check=new Scanner(System.in);
+        
+        
+     // crated an object to accept my inputs for calculations
+        Scanner Obj= new Scanner(System.in); 
+        
+        System.out.println("Hello, Welcome to Charles' calculator ");
+        
+        do{
+        
+        System.out.print("Please Enter a First Number:  ");
+        
+        num1 = Obj.nextDouble(); /*
+        to accept first input from user */
+        System.out.println("enter any of the operators\n -For Addition +\n -For Subtraction -\n -For Multiplication *\n -For Division /\n -For Modulus Calculations % ");
+            System.out.print("Enter operator:  ");
+        operator=Obj.next().charAt(0); /* allows us access to get into a list of operators by picking the first character as the operator */
+        
+        System.out.print("enter a second number: ");
+        num2=Obj.nextDouble();
+        
+        double result=0;
+        
+        switch (operator){
+            case '+':
+            result =num1 + num2;
+            break;
+            
+            case '-':
+            result=num1 - num2;
+            break;
+            
+            case '*':
+            result=num1 * num2;
+            break;
+            
+            case'%':
+            if(num2 !=0){
+                result=num1%num2;
+            }
+            else{
+                System.out.println("Can't perform modulus operation by denominator of zero ");
+            }
+            break;
+            
+            case '/':
+            if(num2 !=0){
+                result=num1 /num2;
+            }
+            else{
+                System.out.println("can't perform devision by 0. please enter a non-zero denominator");
+                
+            }
+            break;
+            
+            default:
+            System.out.println("invalid operator entered");
+            return;
+        }
+        
+            //shows the result of the clculation
+        System.out.println("the result for "+num1 +" " +operator+" " +num2+" " +"="+ " "+result+ "\n"); 
+            //seperate the calculations from option
+            
+            System.out.println("###########################################\n");
+            System.out.println("Do you want to perform another operation? please enter YES/NO");
+        again= Check.nextLine();
+    }while(again.equalsIgnoreCase("yes"));
+    }
+    
+}
