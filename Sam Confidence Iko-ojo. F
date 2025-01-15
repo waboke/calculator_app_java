@@ -1,0 +1,56 @@
+import java.util.Scanner;
+class Calculator2{
+public static void main(String[] args){
+char operator;
+double num1, num2, result;
+
+System.out.println("Welcome to my calculator");//message to the user
+Scanner myObj = new Scanner(System.in); //  a scanner object to accept the input of the user 
+System.out.println("Enter a first number: ");
+num1 = myObj.nextDouble();
+System.out.println("Enter an operator between -, +, /, *, % : ");
+operator=myObj.next().charAt(0); /* here char.At(0) watches for the input of the user of the operator
+*/
+System.out.println("Enter a second number: ");
+num2=myObj.nextDouble();
+result=0;
+
+switch(operator){
+
+    case '+':
+    result=num1 +num2;
+    break;
+
+    case '-':
+    result= num1-num2;
+    break;
+
+    case '%':
+    result=num1%num2;
+    break;
+
+    case '*':
+    result=num1*num2;
+    break;
+
+    case '/':
+    if(num2 !=0){
+        result=num1/num2;
+    }
+    else{
+        System.out.println("division by zero not done ");
+        return;
+    }
+    break;
+
+    default:
+    System.out.println("Enter a valid number  ");
+return;
+}
+
+System.out.println("your value is  "+ result);
+
+}
+
+
+}
