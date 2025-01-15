@@ -1,0 +1,29 @@
+import java.util.Scanner;
+
+public class Name {
+    
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Input the first number: ");
+        Double user_input1 = scanner.nextDouble();
+        
+        
+        System.out.print("Enter the needed arithmetic sign  " +"(+,-,/,*,%)");
+        char operator = scanner.next().charAt(0);
+        
+        System.out.print("Now, type in second number: ");
+        Double user_input2 = scanner.nextDouble();
+        
+        switch (operator) {
+            case '+': System.out.println(user_input1 + user_input2); break;
+            case '-': System.out.println(user_input1 - user_input2); break;
+            case '*': System.out.println(user_input1 * user_input2); break;
+            case '%': System.out.println(user_input1 % user_input2); break;
+            case '/': if (user_input2 != 0) System.out.println(user_input1 / user_input2); else System.out.println("Error: Division by zero"); break;
+            default: System.out.println("Invalid operator");
+        }
+    }
+}
+    
+    
