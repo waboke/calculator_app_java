@@ -1,0 +1,48 @@
+import java.util.Scanner;
+public class Calculator3 {
+    public static void main(String[] args) {
+        char operator;
+        double num1, num2, num3, result;
+        System.out.println("welcome to my calculator");
+        Scanner myObj = new Scanner(System.in);
+        System.out.println("enter a first number");
+        num1 = myObj.nextDouble();
+        System.out.println("enter an operator btw -, +, /, * :");
+        operator = myObj.next().charAt(0);
+        System.out.println("enter a second number");
+        num2 = myObj.nextDouble();
+        result=0;
+        
+        switch(operator){
+            
+            case '+':
+            result=num1+num2;
+            break;
+            
+            case '-':
+            result=num1-num2;
+            break;
+            
+            case '*':
+            result=num1*num2;
+            break;
+            
+            case '/':
+            if(num2!=0){
+                result=num1/num2;
+            }else{
+                System.out.println("division by zero is not allowed");
+                return;
+            }
+            break;
+            
+            default:
+            System.out.println("enter a valid number");
+            return;
+        }
+        
+        System.out.println("your value is "+result);
+    }
+    
+}
+
