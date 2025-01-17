@@ -1,3 +1,7 @@
+//Name:Nasrullah Kolade Ige
+//Department: Automotive Engineeering
+//Matric NO: U23AUE1020
+
 import java.util.Scanner;
 
 public class Mycalculator {
