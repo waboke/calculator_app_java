@@ -1,0 +1,70 @@
+import java.util.Scanner;
+public class Calculator1 {
+    
+    public static void main(String[] args) {
+        Scanner myscanner = new Scanner(System.in);
+        double num1,num2,result;
+        
+        
+  
+        System.out.println("Simple Calculator\n ==================");
+        System.out.println("Choose an operation: \n 1. Addition \n 2. Subtraction \n 3. Multiplication \n 4. Division \n 5. Modulus");
+        
+        System.out.print("Choose operator: ");
+        int operation = myscanner.nextInt();
+        
+        System.out.print("Enter first number: ");
+         num1 = myscanner.nextDouble();
+        
+        System.out.print("Enter second number: ");
+        num2= myscanner.nextDouble();
+        
+        result= 0;
+        switch(operation)
+        {
+            // for addition
+            case 1:
+            result= num1+num2;
+            break;
+            
+            // for subtraction
+            case 2:
+            result= num1-num2;
+            break;
+            
+            //for multiplication
+            case 3:
+            result= num1*num2;
+            break;
+            
+            // for division
+            case 4:
+            if(num2 !=0){
+            result= num1/num2;}
+                else{System.out.println("Error- Cannot divide by 0");
+                return;
+            }
+            break;
+            
+            // for modulus
+            case 5:
+            if(num2!=0){
+            result= num1%num2;}
+              else{System.out.println("Error");
+            return;
+              }
+        
+            break;
+            
+            default:
+          System.out.println("Error- Invalid Operation");
+            return;
+        }        
+System.out.println("Result: "+result);
+        
+
+        
+        
+    }
+    
+}
