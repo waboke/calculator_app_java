@@ -6,3 +6,4 @@
 <li>Owaniyi Oluwafemi Micheal, (@Chuckycipher), Cybersecurity_department, U23CYS1072</li>
 </ol>
 <li>Ahmad Muhammad Idris, (@LuffytheGoat), Physics with Electronics, U23PE1008</li>
+<li>Angbashim Silvanus Afulu,(@SilvaTechBro), Physics with Electronic, U23PE1003</li>
