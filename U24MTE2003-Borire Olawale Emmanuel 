@@ -1,0 +1,49 @@
+import java.util.Scanner;
+
+public class Calculator {
+
+    private double operand1;
+    private double operand2;
+
+    public Calculator(double operand1, double operand2) {
+        this.operand1 = operand1;
+        this.operand2 = operand2;
+    }
+
+    public double add() {
+        return operand1 + operand2;
+    }
+
+    public double subtract() {
+        return operand1 - operand2;
+    }
+
+    public double multiply() {
+        return operand1 * operand2;
+    }
+
+    public double divide() {
+        if (operand2 == 0) {
+            throw new ArithmeticException("Division by zero is not allowed");
+        }
+        return operand1 / operand2;
+    }
+
+    public static void main(String[] args) {
+        // Example usage with specific numbers:
+        double num1 = 10.0;
+        double num2 = 5.0;
+
+        Calculator calculator = new Calculator(num1, num2);
+
+        System.out.println("Addition: " + calculator.add());
+        System.out.println("Subtraction: " + calculator.subtract());
+        System.out.println("Multiplication: " + calculator.multiply());
+
+        try {
+            System.out.println("Division: " + calculator.divide());
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
