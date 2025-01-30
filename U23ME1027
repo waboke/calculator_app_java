@@ -1,0 +1,57 @@
+//U23ME1026_Maxwell Philip Ayodele
+import java.util.Scanner;
+
+public class Maxcalc{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double num1, num2, result;
+        char operator;
+
+        while (true) {
+            System.out.println("Simple Calculator");
+            System.out.println("Enter an operation (+, -, *, /) or 'q' to quit:");
+            operator = scanner.next().charAt(0);
+
+            if (operator == 'q') {
+                System.out.println("Thank you for using the calculator. Goodbye!");
+                break;
+            }
+
+            if (operator != '+' && operator != '-' && operator != '*' && operator != '/') {
+                System.out.println("Invalid operator. Please try again.");
+                continue;
+            }
+
+            System.out.print("Enter first number: ");
+            num1 = scanner.nextDouble();
+
+            System.out.print("Enter second number: ");
+            num2 = scanner.nextDouble();
+
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    System.out.printf("%.2f + %.2f = %.2f%n", num1, num2, result);
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    System.out.printf("%.2f - %.2f = %.2f%n", num1, num2, result);
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    System.out.printf("%.2f * %.2f = %.2f%n", num1, num2, result);
+                    break;
+                case '/':
+                    if (num2 == 0) {
+                        System.out.println("Error: Division by zero is not allowed.");
+                    } else {
+                        result = num1 / num2;
+                        System.out.printf("%.2f / %.2f = %.2f%n", num1, num2, result);
+                    }
+                    break;
+            }
+            System.out.println();
+        }
+        scanner.close();
+    }
+}
