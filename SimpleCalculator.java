@@ -11,7 +11,7 @@ public class SimpleCalculator {
 
         System.out.println("Choose Operator: ");
         System.out.println("1 - Add \n2 - Subtract \n3 - Multiply \n4 - Divide");
-        Syestem.out.print(">>> ")
+        System.out.print(">>> ");
         int operator = sc.nextInt();
 
         int result = 0;
