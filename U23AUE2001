@@ -1,0 +1,92 @@
+import java.util.Scanner;
+
+public class ArithmeticCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
+
+        System.out.println("Welcome to the Arithmetic Calculator!");
+
+        while (running) {
+            // Display menu
+            System.out.println("\nPlease select an operation:");
+            System.out.println("1. Addition");
+            System.out.println("2. Subtraction");
+            System.out.println("3. Multiplication");
+            System.out.println("4. Division");
+            System.out.println("5. Modulus");
+            System.out.println("6. Power");
+            System.out.println("7. Exit");
+
+            System.out.print("Enter your choice: ");
+           
+            // Validate if the input is a valid number
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid input. Please enter a number between 1 and 7.");
+                scanner.next(); // Clear invalid input
+                continue;
+            }
+
+            int choice = scanner.nextInt();
+
+            // Exit if choice is 7
+            if (choice == 7) {
+                System.out.println("Thank you for using the calculator. Goodbye!");
+                running = false;
+                continue;
+            }
+
+            // Prompt for two numbers
+            System.out.print("Enter the first number: ");
+            if (!scanner.hasNextDouble()) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next(); // Clear invalid input
+                continue;
+            }
+            double num1 = scanner.nextDouble();
+
+            System.out.print("Enter the second number: ");
+            if (!scanner.hasNextDouble()) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.next(); // Clear invalid input
+                continue;
+            }
+            double num2 = scanner.nextDouble();
+
+            // Perform the chosen operation
+            switch (choice) {
+                case 1: // Addition
+                    System.out.println("The result is: " + (num1 + num2));
+                    break;
+                case 2: // Subtraction
+                    System.out.println("The result is: " + (num1 - num2));
+                    break;
+                case 3: // Multiplication
+                    System.out.println("The result is: " + (num1 * num2));
+                    break;
+                case 4: // Division
+                    if (num2 == 0) {
+                        System.out.println("Error: Division by zero is not allowed.");
+                    } else {
+                        System.out.println("The result is: " + (num1 / num2));
+                    }
+                    break;
+                case 5: // Modulus
+                    if (num2 == 0) {
+                        System.out.println("Error: Division by zero is not allowed.");
+                    } else {
+                        System.out.println("The result is: " + (num1 % num2));
+                    }
+                    break;
+                case 6: // Power
+                    System.out.println("The result is: " + Math.pow(num1, num2));
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select a valid operation.");
+                    break;
+            }
+        }
+
+        scanner.close();
+    }
+}
