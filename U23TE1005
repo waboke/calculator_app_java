@@ -1,0 +1,107 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class Calculator {
+    private JFrame frame;
+    private JTextField textField;
+    private double number1, number2;
+    private char operation;
+
+    public Calculator() {
+        createGUI();
+    }
+
+    private void createGUI() {
+        frame = new JFrame("Calculator");
+        frame.setSize(200, 250);
+        frame.setLayout(new BorderLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        textField = new JTextField();
+        textField.setHorizontalAlignment(JTextField.RIGHT);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 4));
+
+        String[] buttons = {"7", "8", "9", "/",
+                "4", "5", "6", "*",
+                "1", "2", "3", "-",
+                "0", ".", "=", "+",
+                "C", "", "", ""};
+
+        for (String button : buttons) {
+            if (button.equals("C")) {
+                JButton jButton = new JButton(button);
+                jButton.addActionListener(new ClearListener());
+                panel.add(jButton);
+            } else {
+                JButton jButton = new JButton(button);
+                jButton.addActionListener(new ButtonListener());
+                panel.add(jButton);
+            }
+        }
+
+        frame.add(textField, BorderLayout.NORTH);
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+
+    private class ButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+
+            try {
+                if (command.equals("+") || command.equals("-") ||
+                        command.equals("*") || command.equals("/")) {
+                    number1 = Double.parseDouble(textField.getText());
+                    operation = command.charAt(0);
+                    textField.setText("");
+                } else if (command.equals("=")) {
+                    number2 = Double.parseDouble(textField.getText());
+                    double result = calculateResult();
+                    textField.setText(String.valueOf(result));
+                } else {
+                    textField.setText(textField.getText() + command);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Invalid input");
+            }
+        }
+    }
+
+    private class ClearListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            textField.setText("");
+            number1 = 0;
+            number2 = 0;
+        }
+    }
+
+    private double calculateResult() {
+        double result = 0;
+        switch (operation) {
+            case '+':
+                result = number1 + number2;
+                break;
+            case '-':
+                result = number1 - number2;
+                break;
+            case '*':
+                result = number1 * number2;
+                break;
+            case '/':
+                if (number2 != 0) {
+                    result = number1 / number2;
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Error: Division by zero");
+                }
+                break;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        new Calculator();
+    }
+}
