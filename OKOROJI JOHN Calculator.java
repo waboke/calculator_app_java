@@ -76,11 +76,6 @@ public class OKOROJI JOHN Calculator {
 Here's a step-by-step guide to running this application:
 
 
-1. Save this code in a file called `Calculator.java`.
-2. Open a terminal or command prompt and navigate to the directory where you saved the file.
-3. Compile the code using the command `javac Calculator.java`.
-4. Run the application using the command `java Calculator`.
-5. Follow the prompts to choose an operation and enter numbers.
 
 
 Note: This application uses a simple `switch` statement to perform calculations based on the user's choice. The calculations are performed using private static methods (`add`, `subtract`, `multiply`, `divide`) to keep the code organized and reusable.
