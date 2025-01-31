@@ -1,0 +1,56 @@
+import java.util.Scanner;
+
+public class ConsoleCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean continueCalculating = true;
+
+        System.out.println("==== Console-Based Calculator ====");
+        
+        while (continueCalculating) {
+            // Taking input from the user
+            System.out.print("Enter first number: ");
+            double num1 = scanner.nextDouble();
+            
+            System.out.print("Enter an operator (+, -, *, /): ");
+            char operator = scanner.next().charAt(0);
+            
+            System.out.print("Enter second number: ");
+            double num2 = scanner.nextDouble();
+
+            // Perform calculation
+            double result = 0;
+            boolean validOperation = true;
+
+            switch (operator) {
+                case '+': result = num1 + num2; break;
+                case '-': result = num1 - num2; break;
+                case '*': result = num1 * num2; break;
+                case '/': 
+                    if (num2 != 0) {
+                        result = num1 / num2;
+                    } else {
+                        System.out.println("Error! Division by zero is not allowed.");
+                        validOperation = false;
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid operator! Please use +, -, *, or /.");
+                    validOperation = false;
+            }
+
+            // Display result
+            if (validOperation) {
+                System.out.println("Result: " + result);
+            }
+
+            // Ask if user wants to continue
+            System.out.print("Do you want to perform another calculation? (yes/no): ");
+            String choice = scanner.next().toLowerCase();
+            continueCalculating = choice.equals("yes");
+        }
+
+        System.out.println("Calculator closed. Thank you!");
+        scanner.close();
+    }
+}
