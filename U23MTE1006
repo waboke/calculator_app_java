@@ -1,0 +1,75 @@
+import javax.swing.*;
+
+import java.awt.*;
+
+import java.awt.event.ActionEvent;
+
+import java.awt.event.ActionListener;
+
+public class SwingCalculator {
+
+ public static void main(String[] args) {
+
+ JFrame frame = new JFrame("Swing Calculator");
+
+ frame.setSize(400, 400);
+
+ frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+ 
+
+ // Create components
+
+ JTextField textField = new JTextField();
+
+ JButton addButton = new JButton("+");
+
+ JButton subtractButton = new JButton("-");
+
+ JButton multiplyButton = new JButton("*");
+
+ JButton divideButton = new JButton("/");
+
+ 
+
+ JLabel resultLabel = new JLabel("Result: ");
+
+ frame.setLayout(new GridLayout(3, 2));
+
+ frame.add(textField);
+
+ frame.add(resultLabel);
+
+ frame.add(addButton);
+
+ frame.add(subtractButton);
+
+ frame.add(multiplyButton);
+
+ frame.add(divideButton);
+
+ 
+
+ // Action listeners
+
+ addButton.addActionListener(e -> resultLabel.setText("Result: Add clicked!"));
+
+ subtractButton.addActionListener(e -> resultLabel.setText("Result: Subtract
+
+clicked!"));
+
+ multiplyButton.addActionListener(e -> resultLabel.setText("Result: Multiply
+
+clicked!"));
+
+ divideButton.addActionListener(e -> resultLabel.setText("Result: Divide
+
+clicked!"));
+
+ 
+
+ frame.setVisible(true);
+
+ }
+
+}
