@@ -1,0 +1,131 @@
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
+public class ScientificCalculator extends JFrame implements ActionListener {
+
+    private JTextField display;
+    private String currentInput = "";
+    private boolean isRadians = false;
+    private boolean clearDisplayOnNextInput = false;
+
+    public ScientificCalculator() {
+        setTitle("Scientific Calculator");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+        setPreferredSize(new Dimension(420, 620)); // Slightly increased size
+
+        display = new JTextField("0");
+        display.setHorizontalAlignment(JTextField.RIGHT);
+        display.setFont(new Font("Arial", Font.BOLD, 26)); // Bold font
+        display.setEditable(false);
+        display.setBorder(new EmptyBorder(10, 10, 10, 10));
+        display.setForeground(Color.BLUE); // Changed font color to blue
+        add(display, BorderLayout.NORTH);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(0, 5, 5, 5));
+        buttonPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
+
+        String[] buttonLabels = {
+                "AC", "C", "%", "/", "*",
+                "7", "8", "9", "-", "(",
+                "4", "5", "6", "+", ")",
+                "1", "2", "3", "^", "√",
+                "0", ".", "=", "π", "e",
+                "sin", "cos", "tan", "log", "ln",
+                "sin⁻¹", "cos⁻¹", "tan⁻¹", "10^x", "e^x",
+                "x!", "x^y", "n√x", "Rad/Deg"
+        };
+
+        for (String label : buttonLabels) {
+            JButton button = new JButton(label);
+            button.setFont(new Font("Arial", Font.PLAIN, 18));
+            button.setForeground(Color.BLUE); // Changed button text color
+            button.addActionListener(this);
+            buttonPanel.add(button);
+        }
+
+        add(buttonPanel, BorderLayout.CENTER);
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        if (clearDisplayOnNextInput) {
+            currentInput = "";
+            display.setText("");
+            clearDisplayOnNextInput = false;
+        }
+
+        switch (command) {
+            case "0": case "1": case "2": case "3":
+            case "4": case "5": case "6": case "7":
+            case "8": case "9": case ".":
+                currentInput += command;
+                display.setText(currentInput);
+                break;
+
+            case "+": case "-": case "*": case "/":
+            case "%": case "^": case "(": case ")":
+                currentInput += command;
+                display.setText(currentInput);
+                break;
+
+            case "π":
+                currentInput += Math.PI;
+                display.setText(currentInput);
+                break;
+
+            case "e":
+                currentInput += Math.E;
+                display.setText(currentInput);
+                break;
+
+            case "=":
+                try {
+                    String result = evaluateExpression(currentInput);
+                    display.setText(result);
+                    currentInput = result;
+                    clearDisplayOnNextInput = true;
+                } catch (Exception ex) {
+                    display.setText("Error");
+                    currentInput = "";
+                    clearDisplayOnNextInput = true;
+                }
+                break;
+
+            case "C":
+                currentInput = "";
+                display.setText("0");
+                break;
+
+            case "AC":
+                currentInput = "";
+                display.setText("0");
+                isRadians = false;
+                break;
+        }
+    }
+
+    private String evaluateExpression(String expression) {
+        try {
+            return String.valueOf(ShuntingYardCalculator.evaluate(expression, isRadians));
+        } catch (Exception e) {
+            throw new ArithmeticException(e.getMessage());
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(ScientificCalculator::new);
+    }
+}
