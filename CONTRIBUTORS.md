@@ -4,5 +4,6 @@
 <li>William Rupert Waboke (@waboke)
 <li>Nanribet Yohanna Kutwal, (@Nan-yohanna), Mathematics_department, U23MTH1011</li>
 <li>Owaniyi Oluwafemi Micheal, (@Chuckycipher), Cybersecurity_department, U23CYS1072</li>
-</ol>
+<li>Ademoh Abdulrazak Adinoyi, (@A-dinoyi), Metallurgical and Materials Engineering , U23MME1037</li>
 <li>Ahmad Muhammad Idris, (@LuffytheGoat), Physics with Electronics, U23PE1008</li>
+</ol>
