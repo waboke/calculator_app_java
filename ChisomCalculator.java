@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ChisomCalculator {
+public class Hamidcalculator {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
