@@ -73,7 +73,7 @@ public class OKOROJI JOHN Calculator {
 ```
 
 
-Here's a step-by-step guide to running this application:
+
 
 
 
