@@ -1,0 +1,88 @@
+import java.util.Scanner;
+
+public class CalculatorCLI {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Basic Arithmetic Calculator");
+        System.out.println("Operations available: +, -, x (or *), /, %, ±");
+        System.out.println("Type 'exit' as the first number to quit.\n");
+
+        while (true) {
+            System.out.print("Enter the first number (or 'exit' to quit): ");
+            String firstInput = scanner.next();
+
+            if (firstInput.equalsIgnoreCase("exit")) {
+                break;
+            }
+
+            double firstNumber;
+            try {
+                firstNumber = Double.parseDouble(firstInput);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number. Please try again.");
+                continue;
+            }
+
+            System.out.print("Enter an operator (+, -, x, *, /, %, ±): ");
+            String operator = scanner.next();
+
+            double result = 0;
+
+            // Handle operations that don't need a second number.
+            if (operator.equals("±")) {
+                result = -firstNumber;
+                System.out.println("Result: " + result + "\n");
+                continue;
+            } else if (operator.equals("%")) {
+                result = firstNumber / 100;
+                System.out.println("Result: " + result + "\n");
+                continue;
+            }
+
+            // For other operations, request a second number.
+            System.out.print("Enter the second number: ");
+            double secondNumber;
+            try {
+                secondNumber = scanner.nextDouble();
+            } catch (Exception e) {
+                System.out.println("Invalid number. Please try again.");
+                scanner.next(); // consume invalid token
+                continue;
+            }
+
+            switch (operator) {
+                case "+":
+                    result = firstNumber + secondNumber;
+                    break;
+                case "-":
+                    result = firstNumber - secondNumber;
+                    break;
+                case "x":
+                case "*":
+                    result = firstNumber * secondNumber;
+                    break;
+                case "/":
+                    if (secondNumber == 0) {
+                        System.out.println("Error: Division by zero is not allowed.\n");
+                        continue;
+                    }
+                    result = firstNumber / secondNumber;
+                    break;
+                default:
+                    System.out.println("Invalid operator. Please try again.\n");
+                    continue;
+            }
+
+            // Format the result to avoid unnecessary decimal places.
+            String resultStr = String.valueOf(result);
+            if (resultStr.endsWith(".0")) {
+                resultStr = resultStr.substring(0, resultStr.length() - 2);
+            }
+            System.out.println("Result: " + resultStr + "\n");
+        }
+
+        scanner.close();
+        System.out.println("Calculator terminated.");
+    }
+}
