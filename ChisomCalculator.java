@@ -1,63 +1,49 @@
 import java.util.Scanner;
 
-public class ChisomCalculator {
-
+public class Emmanuel {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Eriobu's Calculator");
-        System.out.println("-------------------");
+        // Asking for user input
+        System.out.print("Enter first number: ");
+        double num1 = scanner.nextDouble();
 
-        double num1 = getNumberFromUser(scanner, "Enter the first number: ");
-        double num2 = getNumberFromUser(scanner, "Enter the second number: ");
+        System.out.print("Enter an operator (+, -, *, /): ");
+        char operator = scanner.next().charAt(0);
 
-        System.out.println("\nResults:");
-        System.out.println("--------");
+        System.out.print("Enter second number: ");
+        double num2 = scanner.nextDouble();
 
-        performAddition(num1, num2);
-        performSubtraction(num1, num2);
-        performMultiplication(num1, num2);
-        performDivision(num1, num2);
+        double result;
 
-        scanner.close();
-    }
-
-    private static double getNumberFromUser(Scanner scanner, String prompt) {
-        double number;
-        while (true) {
-            System.out.print(prompt);
-            if (scanner.hasNextDouble()) {
-                number = scanner.nextDouble();
+        // Performing the operation
+        switch (operator) {
+            case '+':
+                result = num1 + num2;
                 break;
-            } else {
-                System.out.println("Invalid input. Please enter a valid number.");
-                scanner.next(); // Clear the invalid input
-            }
+            case '-':
+                result = num1 - num2;
+                break;
+            case '*':
+                result = num1 * num2;
+                break;
+            case '/':
+                if (num2 != 0) {
+                    result = num1 / num2;
+                } else {
+                    System.out.println("Error: Division by zero is not allowed.");
+                    return;
+                }
+                break;
+            default:
+                System.out.println("Error: Invalid operator.");
+                return;
         }
-        return number;
-    }
 
-    private static void performAddition(double num1, double num2) {
-        double sum = num1 + num2;
-        System.out.printf("Addition: %.2f%n", sum);
-    }
-
-    private static void performSubtraction(double num1, double num2) {
-        double difference = num1 - num2;
-        System.out.printf("Subtraction: %.2f%n", difference);
-    }
-
-    private static void performMultiplication(double num1, double num2) {
-        double product = num1 * num2;
-        System.out.printf("Multiplication: %.2f%n", product);
-    }
-
-    private static void performDivision(double num1, double num2) {
-        if (num2 != 0) {
-            double quotient = num1 / num2;
-            System.out.printf("Division: %.2f%n", quotient);
-        } else {
-            System.out.println("Division by zero is not possible.");
-        }
+        // Displaying the result
+        System.out.println("Result: " + result);
+        
+        // Closing the scanner
+        scanner.close();
     }
 }
