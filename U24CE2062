@@ -1,0 +1,69 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SimpleCalculator extends JFrame implements ActionListener {
+    private JTextField display;
+    private double result = 0;
+    private String operator = "=";
+    private boolean start = true;
+
+    public SimpleCalculator() {
+        setTitle("Calculator");
+        setLayout(new BorderLayout());
+
+        display = new JTextField("0", 12);
+        display.setEditable(false);
+        display.setHorizontalAlignment(JTextField.RIGHT);
+        add(display, BorderLayout.NORTH);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 4));
+        String[] buttons = {"7", "8", "9", "/", "4", "5", "6", "*", "1", "2", "3", "-", "0", ".", "=", "+"};
+        for (String text : buttons) {
+            JButton button = new JButton(text);
+            button.addActionListener(this);
+            panel.add(button);
+        }
+        add(panel, BorderLayout.CENTER);
+
+        setSize(300, 300);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        if ("0123456789.".contains(command)) {
+            if (start) {
+                display.setText(command);
+                start = false;
+            } else {
+                display.setText(display.getText() + command);
+            }
+        } else {
+            if (!start) {
+                calculate(Double.parseDouble(display.getText()));
+                start = true;
+            }
+            operator = command;
+        }
+    }
+
+    private void calculate(double n) {
+        switch (operator) {
+            case "+": result += n; break;
+            case "-": result -= n; break;
+            case "*": result *= n; break;
+            case "/": result /= n; break;
+            case "=": result = n; break;
+        }
+        display.setText("" + result);
+    }
+
+    public static void main(String[] args) {
+        new SimpleCalculator();
+    }
+}
