@@ -1,0 +1,106 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class RaheemaCalculator extends JFrame implements ActionListener {
+    private JTextField textField;
+    private String operator = "";
+    private double num1, num2, result;
+
+    public RaheemaCalculator() {
+        // Set up the frame
+        setTitle("Raheema Abubakar Calculator");
+        setSize(400, 550);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(10, 10));
+        getContentPane().setBackground(Color.BLACK);
+
+        // Text field (Display screen)
+        textField = new JTextField();
+        textField.setFont(new Font("Arial", Font.BOLD, 30));
+        textField.setHorizontalAlignment(JTextField.RIGHT);
+        textField.setEditable(false);
+        textField.setBackground(Color.WHITE);
+        textField.setForeground(Color.BLACK);
+        textField.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+        add(textField, BorderLayout.NORTH);
+
+        // Panel for buttons
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 4, 10, 10));
+        panel.setBackground(Color.BLACK);
+
+        // Button labels
+        String[] buttons = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "0", "C", "=", "+",
+            "Del"
+        };
+
+        // Colors
+        Color greyColor = new Color(169, 169, 169); // Dark Grey
+        Color greenColor = new Color(34, 177, 76); // Green for "C"
+        Color redColor = new Color(200, 0, 0); // Red for "Del"
+
+        // Create and add buttons
+        for (String text : buttons) {
+            JButton button = new JButton(text);
+            button.setFont(new Font("Arial", Font.BOLD, 22));
+            button.setForeground(Color.WHITE);
+            button.setFocusPainted(false);
+
+            // Set button colors
+            if (text.equals("C")) {
+                button.setBackground(greenColor);
+            } else if (text.equals("Del")) {
+                button.setBackground(redColor);
+            } else {
+                button.setBackground(greyColor);
+            }
+
+            button.addActionListener(this);
+            panel.add(button);
+        }
+
+        add(panel, BorderLayout.CENTER);
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        if (command.matches("[0-9]")) { // If it's a number
+            textField.setText(textField.getText() + command);
+        } else if (command.matches("[/*\\-+]")) { // If it's an operator
+            num1 = Double.parseDouble(textField.getText());
+            operator = command;
+            textField.setText("");
+        } else if (command.equals("=")) { // If it's equal sign
+            num2 = Double.parseDouble(textField.getText());
+            switch (operator) {
+                case "+": result = num1 + num2; break;
+                case "-": result = num1 - num2; break;
+                case "*": result = num1 * num2; break;
+                case "/": result = (num2 != 0) ? num1 / num2 : 0; break;
+            }
+            textField.setText(String.valueOf(result));
+        } else if (command.equals("C")) { // Clear button
+            textField.setText("");
+            num1 = num2 = result = 0;
+            operator = "";
+        } else if (command.equals("Del")) { // Delete last digit
+            String currentText = textField.getText();
+            if (!currentText.isEmpty()) {
+                textField.setText(currentText.substring(0, currentText.length() - 1));
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        new RaheemaCalculator();
+    }
+}
