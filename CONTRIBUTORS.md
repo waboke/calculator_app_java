@@ -6,4 +6,4 @@
 <li>Owaniyi Oluwafemi Micheal, (@Chuckycipher), Cybersecurity_department, U23CYS1072</li>
 </ol>
 <li>Ahmad Muhammad Idris, (@LuffytheGoat), Physics with Electronics, U23PE1008</li>
-<li> Sani Jireh Gangas, (@jirehgangas), U23MTE1032, Mechatronics Engineering </ol>
+<li> Sani Jireh Gangas, (@Jireh-Gangas), U23MTE1032, Mechatronics Engineering </ol>
