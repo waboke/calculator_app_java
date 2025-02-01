@@ -4,9 +4,7 @@ public class Calculator {
 
     public static void main(String[] args) {
 
-        Scanner scannerInput = new Scanner(System.in);
-        
-        System.out.println("Ridwan Calculator");        
+        Scanner scannerInput = new Scanner(System.in);    
 
         char operation;
         double number1 , number2;        
