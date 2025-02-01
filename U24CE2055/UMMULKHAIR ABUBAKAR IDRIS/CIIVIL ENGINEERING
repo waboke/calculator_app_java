@@ -1,0 +1,82 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+pubLic class CalculatorGUI {
+    private JFrame frame;
+    private JTextField textField;
+    private double number1, number2, result;
+    private char operation;
+
+    public class CalculatorGUI() {
+        createGUI();
+    }
+    private void createGUI() {
+        frame = new JFrame("Calculator");
+        frame.setSize(400, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+
+        textFIELD = new JTextField();
+        textField.setHorizontalAlignment(JTextField.RIGHT);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 4, 10));
+
+        String[] buttons = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "0", ".", "=", "+",
+            "C", "(", ")", "^"
+        };
+
+        for (String label : buttons) {
+            JButton button = new JButton(label);
+            button.addActionListener(this);
+            panel.add(button);
+        }
+
+        add(panel, BorderLayout.CENTER];
+
+        setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        if (command.charAt(0) == 'C') {
+
+            currentInput.setLength(0);
+            display.setText("");
+        } else if (command.charAt(0) == '=') {
+          number = Double.parseDouble(textField.getText();
+          switch (operation) {
+            case '+':
+                result = number1 + number2;
+                break;
+            case '_':
+                result = number1 _ number2;
+                break;
+            case '*':
+                result = number1 * number2;
+                break;
+             case '/':
+                result = number1 / number2;
+                break;
+        }
+        textField.setText(String.valueOf(result));
+        number1 = result;
+      } else {
+          IF (!textField.getText(). isEmpty()) {
+             number1 = Double.parseDouble(textField.getText());
+             operation = command.charAT(0);
+            textField.setText("");
+          }
+       }
+     }
+   }
+    public static void main(String[] args) {
+        new CalculatorGUI();
+    }
+}
