@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class Calculator {
+    public double add (double a, double b) {
+        return a + b;
+    }
+        public double subtract(double a, double b) {
+            return a - b;
+        }
+            public double multiply(double a, double b) {
+                return a * b;
+            }
+                public double divide(double a, double b) {
+                    if(b == 0) {
+                        System.out.println("Error! Division by zero is not allowed.");
+                    return 0;
+                    }
+                return a / b;
+                }
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        Calculator calculator = new Calculator();
+        while(true) {
+            System.out.println("Simple Console Calculator");
+            System.out.println("Choose an operation: +, -, *, / or 'exit' to quit.");
+            String operation = scanner.next();
+            if(operation.equalsIgnoreCase("exit")) {
+                System.out.println("Exiting Calculator. Goodbye!");
+                break;
+            }
+            System.out.print("Enter first number: ");
+            double num1 = scanner.nextDouble();
+            System.out.print("Enter second number: ");
+            double num2 = scanner.nextDouble();
+            double result = 0;
+            
+            switch(operation) {
+                case "+":
+                result = calculator.add(num1, num2);
+                break;
+                case "-":
+                result = calculator.subtract(num1, num2);
+                break;
+                case "*":
+                result = calculator.multiply(num1, num2);
+                break;
+                case "/":
+                result = calculator.divide(num1, num2);
+                break;
+                default:
+                System.out.println("Invalid operation! Please enter +, -, * or /.");
+                continue;
+            }
+            System.out.println("Result: " + result);
+        }
+    scanner.close();
+    }
+}
