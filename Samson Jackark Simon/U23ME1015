@@ -1,0 +1,43 @@
+public class Calculator {
+
+    private double num1;
+    private double num2;
+
+    // Constructor
+    public Calculator(double num1, double num2) {
+        this.num1 = num1;
+        this.num2 = num2;
+    }
+
+    // Method to add two numbers
+    public double add() {
+        return num1 + num2;
+    }
+
+    // Method to subtract two numbers
+    public double subtract() {
+        return num1 - num2;
+    }
+
+    // Method to multiply two numbers
+    public double multiply() {
+        return num1 * num2;
+    }
+
+    // Method to divide two numbers
+    public double divide() {
+        if (num2 != 0) {
+            return num1 / num2;
+        } else {
+            throw new ArithmeticException("Cannot divide by zero!");
+        }
+    }
+
+    public static void main(String[] args) {
+        Calculator calculator = new Calculator(10, 2);
+        System.out.println("Addition: " + calculator.add());
+        System.out.println("Subtraction: " + calculator.subtract());
+        System.out.println("Multiplication: " + calculator.multiply());
+        System.out.println("Division: " + calculator.divide());
+    }
+}
