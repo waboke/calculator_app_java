@@ -1,0 +1,161 @@
+ package calculator;
+
+ import javax.swing.*;
+ import java.awt.*;
+ import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+
+ public class GUI_Calculator extends JFrame implements ActionListener {
+     private JTextField display;
+     private double num1, num2, result;
+     private char operator;
+     private boolean isOperatorPressed = false;
+     private boolean isEqualPressed = false;
+
+     public GUI_Calculator() {
+         setupFrame();
+         setupDisplay();
+         setupButtons();
+         setVisible(true);
+     }
+
+     private void setupFrame() {
+         setTitle("Calculator");
+         setSize(350, 450);
+         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         setLayout(new BorderLayout());
+     }
+
+     private void setupDisplay() {
+         display = new JTextField();
+         display.setFont(new Font("Poppins", Font.BOLD, 24));
+         display.setHorizontalAlignment(JTextField.RIGHT);
+         display.setEditable(false);
+         display.setBackground(Color.WHITE);
+         display.setForeground(Color.BLACK);
+         add(display, BorderLayout.NORTH);
+     }
+
+     private void setupButtons() {
+         JPanel panel = new JPanel();
+         panel.setLayout(new GridLayout(5, 4, 5, 5));
+         panel.setBackground(Color.WHITE);
+
+         String[] buttonLabels = {
+             "C", "±", "%", "÷",
+             "7", "8", "9", "×",
+             "4", "5", "6", "-",
+             "1", "2", "3", "+",
+             "0", "00", ".", "="
+         };
+
+         for (String label : buttonLabels) {
+             JButton button = createButton(label);
+             panel.add(button);
+         }
+
+         add(panel, BorderLayout.CENTER);
+     }
+
+     private JButton createButton(String text) {
+         JButton button = new JButton(text);
+         button.setFont(new Font("Poppins", Font.BOLD, 18));
+         button.setBackground(Color.BLACK);
+         button.setForeground(Color.WHITE);
+         button.addActionListener(this);
+         return button;
+     }
+
+     @Override
+     public void actionPerformed(ActionEvent e) {
+         String command = e.getActionCommand();
+
+         if (command.matches("[0-9]")) {
+             handleNumberInput(command);
+         } else if (command.equals("00")) {
+             handleDoubleZero();
+         } else if (command.equals(".")) {
+             handleDecimalPoint();
+         } else if (command.matches("[÷×\\-+]")) {
+             handleOperator(command.charAt(0));
+         } else if (command.equals("=")) {
+             calculateResult();
+         } else if (command.equals("C")) {
+             clearDisplay();
+         } else if (command.equals("±")) {
+             toggleSign();
+         } else if (command.equals("%")) {
+             calculatePercentage();
+         }
+     }
+
+     private void handleNumberInput(String number) {
+         if (isOperatorPressed || isEqualPressed) {
+             display.setText(number);
+             isOperatorPressed = false;
+             isEqualPressed = false;
+         } else {
+             display.setText(display.getText() + number);
+         }
+     }
+
+     private void handleDoubleZero() {
+         if (!display.getText().isEmpty()) {
+             display.setText(display.getText() + "00");
+         }
+     }
+
+     private void handleDecimalPoint() {
+         if (!display.getText().contains(".")) {
+             display.setText(display.getText() + ".");
+         }
+     }
+
+     private void handleOperator(char op) {
+         num1 = Double.parseDouble(display.getText());
+         operator = op;
+         isOperatorPressed = true;
+         isEqualPressed = false;
+     }
+
+     private void calculateResult() {
+         if (!display.getText().isEmpty() && !isEqualPressed) {
+             num2 = Double.parseDouble(display.getText());
+             switch (operator) {
+                 case '÷': result = num1 / num2; break;
+                 case '×': result = num1 * num2; break;
+                 case '-': result = num1 - num2; break;
+                 case '+': result = num1 + num2; break;
+                 default: return; // Do nothing if no operator was selected
+             }
+             display.setText(String.valueOf(result));
+             isEqualPressed = true;  
+         }
+     }
+
+     private void clearDisplay() {
+         display.setText("");
+         num1 = num2 = result = 0;
+         operator = ' ';
+         isEqualPressed = false;
+     }
+
+     private void toggleSign() {
+         if (!display.getText().isEmpty()) {
+             double value = Double.parseDouble(display.getText()) * -1;
+             display.setText(String.valueOf(value));
+         }
+     }
+
+     private void calculatePercentage() {
+         if (!display.getText().isEmpty()) {
+             double value = Double.parseDouble(display.getText()) / 100;
+             display.setText(String.valueOf(value));
+         }
+     }
+
+     public static void main(String[] args) {
+         new GUI_Calculator();
+     }
+ }
+
