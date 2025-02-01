@@ -1,0 +1,51 @@
+// Calculator class implementing basic arithmetic operations
+public class Calculator {
+
+    // Method to add two numbers
+    public double add(double a, double b) {
+        return a + b;
+    }
+
+    // Method to subtract two numbers
+    public double subtract(double a, double b) {
+        return a - b;
+    }
+
+    // Method to multiply two numbers
+    public double multiply(double a, double b) {
+        return a * b;
+    }
+
+    // Method to divide two numbers, handling division by zero
+    public double divide(double a, double b) {
+        if (b == 0) {
+            throw new ArithmeticException("Cannot divide by zero");
+        }
+        return a / b;
+    }
+
+    public static void main(String[] args) {
+        // Create an instance of the Calculator class
+        Calculator calculator = new Calculator();
+
+        // Test addition
+        double additionResult = calculator.add(10, 5);
+        System.out.println("Addition Result: " + additionResult);
+
+        // Test subtraction
+        double subtractionResult = calculator.subtract(10, 5);
+        System.out.println("Subtraction Result: " + subtractionResult);
+
+        // Test multiplication
+        double multiplicationResult = calculator.multiply(10, 5);
+        System.out.println("Multiplication Result: " + multiplicationResult);
+
+        // Test division
+        try {
+            double divisionResult = calculator.divide(10, 5);
+            System.out.println("Division Result: " + divisionResult);
+        } catch (ArithmeticException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+}
