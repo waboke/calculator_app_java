@@ -1,63 +1,71 @@
 import java.util.Scanner;
 
-public class ChisomCalculator {
+public class Calculator {
 
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Eriobu's Calculator");
-        System.out.println("-------------------");
+        while (true) {
+            System.out.println("Simple Calculator");
+            System.out.println("1. Addition");
+            System.out.println("2. Subtraction");
+            System.out.println("3. Multiplication");
+            System.out.println("4. Division");
+            System.out.println("5. Exit");
 
-        double num1 = getNumberFromUser(scanner, "Enter the first number: ");
-        double num2 = getNumberFromUser(scanner, "Enter the second number: ");
+            System.out.print("Choose an operation (1-5): ");
+            int choice = scanner.nextInt();
 
-        System.out.println("\nResults:");
-        System.out.println("--------");
+            if (choice == 5) {
+                System.out.println("Exiting...");
+                break;
+            }
 
-        performAddition(num1, num2);
-        performSubtraction(num1, num2);
-        performMultiplication(num1, num2);
-        performDivision(num1, num2);
+            System.out.print("Enter first number: ");
+            double num1 = scanner.nextDouble();
+
+            System.out.print("Enter second number: ");
+            double num2 = scanner.nextDouble();
+
+            switch (choice) {
+                case 1:
+                    System.out.println("Result: " + add(num1, num2));
+                    break;
+                case 2:
+                    System.out.println("Result: " + subtract(num1, num2));
+                    break;
+                case 3:
+                    System.out.println("Result: " + multiply(num1, num2));
+                    break;
+                case 4:
+                    if (num2 != 0) {
+                        System.out.println("Result: " + divide(num1, num2));
+                    } else {
+                        System.out.println("Error: Division by zero!");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please choose a valid operation.");
+            }
+        }
 
         scanner.close();
     }
 
-    private static double getNumberFromUser(Scanner scanner, String prompt) {
-        double number;
-        while (true) {
-            System.out.print(prompt);
-            if (scanner.hasNextDouble()) {
-                number = scanner.nextDouble();
-                break;
-            } else {
-                System.out.println("Invalid input. Please enter a valid number.");
-                scanner.next(); // Clear the invalid input
-            }
-        }
-        return number;
+    private static double add(double num1, double num2) {
+        return num1 + num2;
     }
 
-    private static void performAddition(double num1, double num2) {
-        double sum = num1 + num2;
-        System.out.printf("Addition: %.2f%n", sum);
+    private static double subtract(double num1, double num2) {
+        return num1 - num2;
     }
 
-    private static void performSubtraction(double num1, double num2) {
-        double difference = num1 - num2;
-        System.out.printf("Subtraction: %.2f%n", difference);
+    private static double multiply(double num1, double num2) {
+        return num1 * num2;
     }
 
-    private static void performMultiplication(double num1, double num2) {
-        double product = num1 * num2;
-        System.out.printf("Multiplication: %.2f%n", product);
-    }
-
-    private static void performDivision(double num1, double num2) {
-        if (num2 != 0) {
-            double quotient = num1 / num2;
-            System.out.printf("Division: %.2f%n", quotient);
-        } else {
-            System.out.println("Division by zero is not possible.");
-        }
+    private static double divide(double num1, double num2) {
+        return num1 / num2;
     }
 }
