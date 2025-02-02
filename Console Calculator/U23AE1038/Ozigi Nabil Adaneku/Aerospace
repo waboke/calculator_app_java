@@ -1,0 +1,137 @@
+import java.util.Scanner;
+
+public class ConsoleCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Console Calculator");
+        System.out.println("1. Addition");
+        System.out.println("2. Subtraction");
+        System.out.println("3. Multiplication");
+        System.out.println("4. Division");
+        System.out.print("Choose an operation (1-4): ");
+        int choice = scanner.nextInt();
+        System.out.print("Enter the first number: ");
+        double num1 = scanner.nextDouble();
+        System.out.print("Enter the second number: ");
+        double num2 = scanner.nextDouble();
+        scanner.close();
+
+        switch (choice) {
+            case 1:
+                System.out.println("Result: " + (num1 + num2));
+                break;
+            case 2:
+                System.out.println("Result: " + (num1 - num2));
+                break;
+            case 3:
+                System.out.println("Result: " + (num1 * num2));
+                break;
+            case 4:
+                if (num2 != 0) {
+                    System.out.println("Result: " + (num1 / num2));
+                } else {
+                    System.out.println("Error: Division by zero!");
+                }
+                break;
+            default:
+                System.out.println("Invalid choice!");
+        }
+    }
+}
+
+
+# GUI Calculator using Swing
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class SwingCalculator {
+    private JFrame frame;
+    private JTextField textField;
+    private double number1, number2;
+    private char operation;
+
+    public SwingCalculator() {
+        createGUI();
+    }
+
+    private void createGUI() {
+        frame = new JFrame("Swing Calculator");
+        frame.setSize(250, 250);
+        frame.setLayout(new BorderLayout());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        textField = new JTextField();
+        textField.setHorizontalAlignment(JTextField.RIGHT);
+        frame.add(textField, BorderLayout.NORTH);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 4));
+        frame.add(panel, BorderLayout.CENTER);
+
+        String[] buttons = {"7", "8", "9", "/",
+                              "4", "5", "6", "*",
+                              "1", "2", "3", "-",
+                              "0", ".", "=", "+"};
+
+        for (String button : buttons) {
+            JButton jButton = new JButton(button);
+            jButton.addActionListener(new ButtonListener());
+            panel.add(jButton);
+        }
+
+        frame.setVisible(true);
+    }
+
+    private class ButtonListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+
+            if (command.equals("+") || command.equals("-") ||
+                command.equals("*") || command.equals("/")) {
+                number1 = Double.parseDouble(textField.getText());
+                operation = command.charAt(0);
+                textField.setText("");
+            } else if (command.equals("=")) {
+                number2 = Double.parseDouble(textField.getText());
+                double result = calculateResult();
+                textField.setText(String.valueOf(result));
+            } else {
+                textField.setText(textField.getText() + command);
+            }
+        }
+
+        private double calculateResult() {
+            switch (operation) {
+                case '+':
+                    return number1 + number2;
+                case '-':
+                    return number1 - number2;
+                case '*':
+                    return number1 * number2;
+                case '/':
+                    if (number2 != 0) {
+                        return number1 / number2;
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Error: Division by zero!");
+                        return 0;
+                    }
+                default:
+                    return 0;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new SwingCalculator();
+            }
+        });
+    }
+}
+
+
