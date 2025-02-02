@@ -1,0 +1,52 @@
+<li>Olatunji Abdullah , (Shadow000o7), Metallurgical and Materials engineering, U23MME1032</li>
+
+import java.util.Scanner;
+public class calculator {
+  public static void main(String[] args) {
+    Scanner scanner = new Scanner(System.in);
+    double num1;
+    double num2;
+    System.out.println("Operations\n" +
+        "'1' Addition\n" +
+        "'2' Subtraction\n" +
+        "'3' Multiplication\n" +
+        "'4' Division");
+    System.out.print("chose an operation: ");
+    int operation = scanner.nextInt();
+    switch (operation) {
+      case 1:
+        System.out.print("num1: ");
+        num1 = scanner.nextDouble();
+        System.out.print("num2: ");
+        num2 = scanner.nextDouble();
+        System.out.println(num1 + num2);
+        break;
+      case 2:
+        System.out.print("num1: ");
+        num1 = scanner.nextDouble();
+        System.out.print("num2: ");
+        num2 = scanner.nextDouble();
+        System.out.println(num1 - num2);
+        break;
+      case 3:
+        System.out.print("num1: ");
+        num1 = scanner.nextDouble();
+        System.out.print("num2: ");
+        num2 = scanner.nextDouble();
+        System.out.println(num1 * num2);
+        break;
+      case 4:
+        System.out.print("num1: ");
+        num1 = scanner.nextDouble();
+        System.out.print("num2: ");
+        num2 = scanner.nextDouble();
+        System.out.println(num1 / num2);
+        break;
+      default:
+        System.out.println("Invalid Input");
+    }
+  }
+}
+
+
+
