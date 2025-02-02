@@ -1,0 +1,29 @@
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner calc = new Scanner(System.in);
+        System.out.println("enter the first number");
+        double num1 = calc.nextDouble();
+        calc.nextLine();
+        System.out.println("enter second number");
+        double num2 = calc.nextDouble();
+        calc.nextLine();
+        System.out.print("what operation do you want to perform");
+
+        String operation = calc.nextLine();
+        if (operation.equals("+")) {
+            System.out.printf("%f+%f=%f", num1, num2, num1 + num2);
+        } else if (operation.equals("-")) {
+            System.out.printf("%f-%f=%f", num1, num2, num1 - num2);
+        } else if (operation.equals("*")) {
+            System.out.printf("%f * %f=%f", num1, num2, num1 * num2);
+        } else if (num2 == 0) {
+            System.out.println("cannot be divided by 0");
+        } else if (operation.equals("/")) {
+            System.out.printf("%f/ %f=%f", num1, num2, num1 / num2);
+        }
+else {
+                System.out.print("not supported operation");
+            }
+        }
+    }
