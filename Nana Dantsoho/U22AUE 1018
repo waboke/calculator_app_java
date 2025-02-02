@@ -1,0 +1,123 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+
+public class NanaCalculator extends JFrame implements ActionListener {
+    private JTextField textField;
+    private String operator = "";
+    private double num1, num2, result;
+    private boolean isNewInput = true;
+
+    public FareedahCalculator() {
+        // Frame Properties
+        setTitle("Fareedah Calculator");
+        setSize(400, 580);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setResizable(false);
+        setLocationRelativeTo(null);
+        setLayout(null); // Absolute positioning
+        getContentPane().setBackground(Color.BLACK);
+
+        // Text Field
+        textField = new JTextField();
+        textField.setBounds(30, 25, 320, 50);
+        textField.setFont(new Font("Arial", Font.BOLD, 24));
+        textField.setHorizontalAlignment(JTextField.RIGHT);
+        textField.setEditable(false);
+        add(textField);
+
+        // Button Labels
+        String[][] buttonLabels = {
+            {"1", "2", "3", "+"},
+            {"4", "5", "6", "-"},
+            {"7", "8", "9", "*"},
+            {"C", "0", "%", "/"},
+            {"D", ".", "=", ""}
+        };
+
+        // Creating Buttons
+        int x = 30, y = 100, width = 70, height = 70;
+        for (int i = 0; i < buttonLabels.length; i++) {
+            for (int j = 0; j < buttonLabels[i].length; j++) {
+                if (buttonLabels[i][j].isEmpty()) continue; // Skip empty button space
+                
+                JButton button = new JButton(buttonLabels[i][j]);
+                button.setBounds(x, y, width, height);
+                button.setFont(new Font("Arial", Font.BOLD, 24));
+                button.setFocusPainted(false);
+
+                // Button colors
+                if (buttonLabels[i][j].equals("C")) {
+                    button.setBackground(Color.RED);
+                    button.setForeground(Color.WHITE);
+                } else if (buttonLabels[i][j].equals("D")) {
+                    button.setBackground(Color.YELLOW);
+                    button.setForeground(Color.BLACK);
+                } else {
+                    button.setBackground(Color.GRAY);
+                    button.setForeground(Color.WHITE);
+                }
+
+                button.addActionListener(this);
+                add(button);
+                x += 80; // Move to next column
+            }
+            x = 30; // Reset to first column
+            y += 80; // Move to next row
+        }
+
+        setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        if (command.matches("[0-9]")) { // Numbers
+            if (isNewInput) {
+                textField.setText(command);
+                isNewInput = false;
+            } else {
+                textField.setText(textField.getText() + command);
+            }
+        } else if (command.equals(".")) { // Decimal
+            if (!textField.getText().contains(".")) {
+                textField.setText(textField.getText() + ".");
+                isNewInput = false;
+            }
+        } else if (command.matches("[/*\\-+%]")) { // Operators
+            if (!textField.getText().isEmpty()) {
+                num1 = Double.parseDouble(textField.getText());
+                operator = command;
+                isNewInput = true;
+            }
+        } else if (command.equals("=")) { // Equals
+            if (!textField.getText().isEmpty() && !operator.isEmpty()) {
+                num2 = Double.parseDouble(textField.getText());
+                switch (operator) {
+                    case "+": result = num1 + num2; break;
+                    case "-": result = num1 - num2; break;
+                    case "*": result = num1 * num2; break;
+                    case "/": result = num2 != 0 ? num1 / num2 : 0; break;
+                    case "%": result = num1 % num2; break;
+                }
+                textField.setText(String.valueOf(result));
+                isNewInput = true;
+            }
+        } else if (command.equals("D")) { // Delete (Backspace)
+            String text = textField.getText();
+            if (!text.isEmpty()) {
+                textField.setText(text.substring(0, text.length() - 1));
+            }
+        } else if (command.equals("C")) { // Clear
+            textField.setText("");
+            num1 = num2 = result = 0;
+            operator = "";
+            isNewInput = true;
+        }
+    }
+
+    public static void main(String[] args) {
+        new FareedahCalculator();
+    }
+}
