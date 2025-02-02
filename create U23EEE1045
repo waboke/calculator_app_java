@@ -1,0 +1,122 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class FavourCalculator {
+    private JFrame frame;
+    private JTextField textField;
+    private String operator;
+    private double num1, num2, result;
+
+    public FavourCalculator() {
+        frame = new JFrame("Favour Calculator");
+        frame.setLayout(new BorderLayout());
+        frame.setSize(400, 500);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        textField = new JTextField();
+        textField.setFont(new Font("Arial", Font.PLAIN, 30));
+        textField.setBackground(Color.BLACK);
+        textField.setForeground(Color.WHITE);
+        frame.add(textField, BorderLayout.NORTH);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 4, 10, 10));
+        frame.add(panel, BorderLayout.CENTER);
+
+        String[] buttons = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "DEL", "0", "CLR", "+"
+        };
+
+        for (String text : buttons) {
+            JButton button = new JButton(text);
+            button.setFont(new Font("Arial", Font.PLAIN, 20));
+            button.setBackground(Color.BLACK);
+            button.setForeground(Color.WHITE);
+            button.addActionListener(new ButtonClickListener());
+            panel.add(button);
+        }
+
+        JButton modButton = new JButton("%");
+        modButton.setFont(new Font("Arial", Font.PLAIN, 20));
+        modButton.setBackground(Color.BLACK);
+        modButton.setForeground(Color.WHITE);
+        modButton.addActionListener(new ButtonClickListener());
+        panel.add(modButton);
+
+        frame.setVisible(true);
+    }
+
+    private class ButtonClickListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+
+            if (command.charAt(0) == 'C') { // CLR
+                textField.setText("");
+                num1 = num2 = result = 0;
+                operator = "";
+            } else if (command.charAt(0) == 'D') { // DEL
+                String text = textField.getText();
+                if (text.length() > 0) {
+                    textField.setText(text.substring(0, text.length() - 1));
+                }
+            } else if (command.equals("=")) {
+                num2 = Double.parseDouble(textField.getText());
+                switch (operator) {
+                    case "+":
+                        result = num1 + num2;
+                        break;
+                    case "-":
+                        result = num1 - num2;
+                        break;
+                    case "*":
+                        result = num1 * num2;
+                        break;
+                    case "/":
+                        if (num2 != 0) {
+                            result = num1 / num2;
+                        } else {
+                            textField.setText("Error");
+                            return;
+                        }
+                        break;
+                    case "%":
+                        result = num1 % num2;
+                        break;
+                }
+                textField.setText(String.valueOf(result));
+                num1 = result;
+                operator = "";
+            } else if (command.equals("+") || command.equals("-") || command.equals("*") || command.equals("/") || command.equals("%")) {
+                if (!operator.isEmpty()) {
+                    return; // Prevent multiple operators
+                }
+                operator = command;
+                num1 = Double.parseDouble(textField.getText());
+                textField.setText("");
+            } else {
+                textField.setText(textField.getText() + command);
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new FavourCalculator();
+            }
+        });
+    }
+}
+
+
+
+Footer
+© 2025 GitHub, Inc.
+Footer navigation
+Terms
+Pr
