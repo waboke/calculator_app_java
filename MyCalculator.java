@@ -4,7 +4,7 @@ public class MyCalculator {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Welcome to Adam's Calculator");
+        System.out.println("Welcome to Shamsudeen's Calculator");
         System.out.println("Enter any key to start the calculator:");
         input.nextLine();
 
