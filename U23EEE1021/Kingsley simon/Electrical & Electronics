@@ -1,0 +1,42 @@
+import java.util.Scanner;
+
+public class CalculatorApp{
+    public static void main(String[] args){
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println("Welcome to the Calculator App!");
+            System.out.println("1- addition\n2-subtraction\n3-multiplication\n4-division");
+            System.out.print("Enter an operator " );
+            int operator = scanner.nextInt();
+            System.out.print("Enter the first number:");
+            double num1 = scanner.nextDouble();
+            System.out.print("Enter the second number: ");
+            double num2 = scanner.nextDouble();
+            
+            double result;
+            switch (operator) {
+                case 1:
+                    result = num1 + num2;
+                    System.out.println("The result is: " + result);
+                    break;
+                case 2:
+                    result = num1 - num2;
+                    System.out.println("The result is: " + result);
+                    break;
+                case 3:
+                    result = num1 * num2;
+                    System.out.println("The result is: " + result);
+                    break;
+                case 4:
+                    if (num2 != 0) {
+                        result = num1 / num2;
+                        System.out.println("The result is: " + result);
+                    } else {
+                        System.out.println("Error: Division by zero is not allowed.");
+                    }
+                    break;
+                default:
+                    System.out.println("Error: Invalid operator.");
+            }
+        }
+    }
+}
