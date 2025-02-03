@@ -1,0 +1,201 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.Math;
+
+public class SwingCalculator {
+
+    private JFrame frame;
+    private JTextField textField;
+    private StringBuilder currentInput;
+    private boolean isDegreeMode;
+    private double previousResult;  // Store the last result
+
+    public SwingCalculator() {
+        frame = new JFrame("Swing Calculator");
+        textField = new JTextField();
+        currentInput = new StringBuilder();
+        isDegreeMode = true;  // Default mode is degree
+        previousResult = 0;   // Initialize the previous result
+
+        frame.setSize(400, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout());
+
+        // Text field to display input and results
+        textField.setFont(new Font("Arial", Font.PLAIN, 30));
+        textField.setEditable(false);
+        frame.add(textField, BorderLayout.NORTH);
+
+        // Panel for buttons
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(8, 4, 10, 10));  // Increased row count for additional buttons
+
+        // Button labels and their action listeners
+        String[] buttons = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "0", ".", "=", "+",
+            "sin", "cos", "tan", "log",
+            "ln", "exp", "C", "√",
+            "Deg/Rad", "Del", "Ans", "x²"  // Added Square button
+        };
+
+        for (String text : buttons) {
+            JButton button = new JButton(text);
+            button.setFont(new Font("Arial", Font.PLAIN, 24));
+            button.addActionListener(new ButtonClickListener());
+            panel.add(button);
+        }
+
+        frame.add(panel, BorderLayout.CENTER);
+
+        frame.setVisible(true);
+    }
+
+    // ActionListener for button clicks
+    private class ButtonClickListener implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            String command = e.getActionCommand();
+
+            // Toggle between Degree and Radian mode
+            if (command.equals("Deg/Rad")) {
+                isDegreeMode = !isDegreeMode; // Toggle mode
+                String mode = isDegreeMode ? "Degree" : "Radian";
+                textField.setText("Mode: " + mode);  // Display current mode
+                return;
+            }
+
+            // Handle calculation on "=" click
+            if (command.equals("=")) {
+                try {
+                    String expression = currentInput.toString();
+                    double result = evaluate(expression);
+                    textField.setText(String.valueOf(result));
+                    previousResult = result; // Store the result for future reference
+                    currentInput.setLength(0); // Clear input after calculation
+                } catch (Exception ex) {
+                    textField.setText("Error");
+                    currentInput.setLength(0);
+                }
+            } else if (command.equals("C")) {
+                currentInput.setLength(0); // Clear the current input
+                textField.setText("");
+            } else if (command.equals("Del")) {
+                // Delete last character from input
+                if (currentInput.length() > 0) {
+                    currentInput.deleteCharAt(currentInput.length() - 1);
+                    textField.setText(currentInput.toString());
+                }
+            } else if (command.equals("Ans")) {
+                // Insert the last result into the current input
+                currentInput.append(previousResult);
+                textField.setText(currentInput.toString());
+            } else if (command.equals("x²")) {
+                // Square the current input
+                try {
+                    double value = Double.parseDouble(currentInput.toString());
+                    double result = Math.pow(value, 2);
+                    currentInput.setLength(0); // Clear the current input
+                    currentInput.append(result); // Display the squared result
+                    textField.setText(currentInput.toString());
+                } catch (NumberFormatException ex) {
+                    textField.setText("Error");
+                    currentInput.setLength(0);
+                }
+            } else {
+                currentInput.append(command); // Add button text to the current input
+                textField.setText(currentInput.toString());
+            }
+        }
+    }
+
+    // Method to evaluate the expression
+    private double evaluate(String expression) {
+        try {
+            expression = expression.replace(" ", ""); // Remove spaces
+
+            // Handle trigonometric functions (sin, cos, tan)
+            if (expression.contains("sin") || expression.contains("cos") || expression.contains("tan")) {
+                return evaluateTrigonometric(expression);
+            }
+
+            // Handle logarithmic functions (log, ln)
+            if (expression.contains("log")) {
+                return Math.log10(Double.parseDouble(expression.replace("log", "")));
+            } else if (expression.contains("ln")) {
+                return Math.log(Double.parseDouble(expression.replace("ln", "")));
+            }
+
+            // Handle square root (√)
+            if (expression.contains("√")) {
+                return Math.sqrt(Double.parseDouble(expression.replace("√", "")));
+            }
+
+            // Handle exponential (exp)
+            if (expression.contains("exp")) {
+                return Math.exp(Double.parseDouble(expression.replace("exp", "")));
+            }
+
+            // Basic arithmetic evaluation (using Java's eval-like method)
+            return evaluateArithmetic(expression);
+        } catch (Exception e) {
+            throw new RuntimeException("Invalid expression");
+        }
+    }
+
+    // Handle trigonometric operations
+    private double evaluateTrigonometric(String expression) {
+        double value = Double.parseDouble(expression.replaceAll("[a-zA-Z]", "").trim());
+
+        if (isDegreeMode) {
+            value = Math.toRadians(value); // Convert to radians if in Degree mode
+        }
+
+        if (expression.contains("sin")) {
+            return Math.sin(value);
+        } else if (expression.contains("cos")) {
+            return Math.cos(value);
+        } else if (expression.contains("tan")) {
+            return Math.tan(value);
+        }
+        return 0;
+    }
+
+    // Basic arithmetic evaluation (handles +, -, *, /)
+    private double evaluateArithmetic(String expression) {
+        // Replace operations and handle arithmetic evaluation manually
+        double result = 0;
+        String[] terms = expression.split("(?=[-+*/])|(?<=[-+*/])");
+
+        // Perform basic arithmetic operations using the terms
+        result = Double.parseDouble(terms[0]);
+
+        for (int i = 1; i < terms.length; i += 2) {
+            double num = Double.parseDouble(terms[i + 1]);
+            switch (terms[i]) {
+                case "+":
+                    result += num;
+                    break;
+                case "-":
+                    result -= num;
+                    break;
+                case "*":
+                    result *= num;
+                    break;
+                case "/":
+                    result /= num;
+                    break;
+            }
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new SwingCalculator());
+    }
+}
