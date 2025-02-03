@@ -1,0 +1,178 @@
+import java.util.Scanner;
+
+
+
+public class ConsoleCalculatorForAed4 {
+
+    public static void main(String[] args) {
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to Console Calculator!  By Aerospace Group4");
+
+
+
+        while (true) {
+
+            System.out.println("\nSelect an operation:");
+
+            System.out.println("+ for Addition");
+
+            System.out.println("- for Subtraction");
+
+            System.out.println("* for Multiplication");
+
+            System.out.println("/ for Division");
+
+            System.out.println("^ for Exponentiation");
+
+            System.out.println("% for Modulo");
+
+            System.out.println("√ for Square Root");
+
+            System.out.print("Enter your choice: ");
+
+            
+
+            char operator = scanner.next().charAt(0);
+
+            double num1 = 0, num2 = 0, result = 0;
+
+            boolean validOperation = true;
+
+
+
+            if (operator == '√') {  
+
+                System.out.print("Enter the number: ");
+
+                num1 = scanner.nextDouble();
+
+                if (num1 >= 0) {
+
+                    result = Math.sqrt(num1);
+
+                } else {
+
+                    System.out.println("Error: Cannot calculate square root of a negative number.");
+
+                    validOperation = false;
+
+                }
+
+            } else {
+
+                System.out.print("Enter first number: ");
+
+                num1 = scanner.nextDouble();
+
+
+
+                System.out.print("Enter second number: ");
+
+                num2 = scanner.nextDouble();
+
+
+
+                switch (operator) {
+
+                    case '+':
+
+                        result = num1 + num2;
+
+                        break;
+
+                    case '-':
+
+                        result = num1 - num2;
+
+                        break;
+
+                    case '*':
+
+                        result = num1 * num2;
+
+                        break;
+
+                    case '/':
+
+                        if (num2 != 0) {
+
+                            result = num1 / num2;
+
+                        } else {
+
+                            System.out.println("Error: Division by zero.");
+
+                            validOperation = false;
+
+                        }
+
+                        break;
+
+                    case '^':
+
+                        result = Math.pow(num1, num2);
+
+                        break;
+
+                    case '%':
+
+                        if (num2 != 0) {
+
+                            result = num1 % num2;
+
+                        } else {
+
+                            System.out.println("Error: Modulo by zero is not allowed.");
+
+                            validOperation = false;
+
+                        }
+
+                        break;
+
+                    default:
+
+                        System.out.println("Invalid operator.");
+
+                        validOperation = false;
+
+                }
+
+            }
+
+
+
+            if (validOperation) {
+
+                System.out.println("Result: " + result);
+
+            }
+
+
+
+            System.out.print("\nDo you want to perform another calculation? (yes/no): ");
+
+            String choice = scanner.next().toLowerCase();
+
+
+
+            if (!choice.equals("yes")) {
+
+                System.out.println("Thank you for using Our Console Calculator. Bye 👋🏼");
+
+                break;
+
+            }
+
+        }
+
+
+
+        scanner.close();
+
+    }
+
+}
+
