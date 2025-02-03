@@ -1,0 +1,57 @@
+import java.util.Scanner;
+
+public class Calculator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        char operator;
+        double num1, num2, result;
+
+        System.out.println("Welcome to the Akojuru's Calculator!");
+        System.out.println("Enter an operator (+, -, *, /) or 'q' to quit:");
+
+        while (true) {
+            operator = scanner.next().charAt(0);
+
+            if (operator == 'q') {
+                System.out.println("Exiting the calculator. Goodbye!");
+                break;
+            }
+
+            System.out.print("Enter first number: ");
+            num1 = scanner.nextDouble();
+            System.out.print("Enter second number: ");
+            num2 = scanner.nextDouble();
+
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    System.out.println("Result: " + num1 + " + " + num2 + " = " + result);
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    System.out.println("Result: " + num1 + " - " + num2 + " = " + result);
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    System.out.println("Result: " + num1 + " * " + num2 + " = " + result);
+                    break;
+                case '/':
+                    if (num2 != 0) {
+                        result = num1 / num2;
+                        System.out.println("Result: " + num1 + " / " + num2 + " = " + result);
+                    } else {
+                        System.out.println("Error: Division by zero is not allowed.");
+                    }
+                    break;
+                default:
+                    System.out.println("Error: Invalid operator.");
+                    break;
+            }
+
+            System.out.println("\nEnter another operator (+, -, *, /) or 'q' to quit:");
+        }
+        
+        scanner.close();
+    }
+}
