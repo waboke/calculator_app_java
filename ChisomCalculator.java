@@ -1,63 +1,116 @@
 import java.util.Scanner;
-
-public class ChisomCalculator {
-
+class FaisolCalculator {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        System.out.print("""
+                Welcome to Faisol's Calculator
+                Press Enter to start the calculator: """);
+        Scanner input = new Scanner(System.in);
+        input.nextLine(); // The user is expected to type any character and press enter to continue to the calculator
+        System.out.println("""
+                             COMMAND LIST:
+                    Use '+' for addition
+                    Use '*' for multiplication
+                    Use '-' for subtraction
+                    Use '/' for division
+                    Use '%' for remainder
+                    Use '^' for raise to power (to calculate a raise to power of b; you can use a^(b^-1) to calculate the bth root of A)
+                    Use 'sqrt' for square root
+                    Press Enter to carry out the calculation
+                    Input your calculation, press enter after every variable or operand you input""");
 
-        System.out.println("Eriobu's Calculator");
-        System.out.println("-------------------");
 
-        double num1 = getNumberFromUser(scanner, "Enter the first number: ");
-        double num2 = getNumberFromUser(scanner, "Enter the second number: ");
-
-        System.out.println("\nResults:");
-        System.out.println("--------");
-
-        performAddition(num1, num2);
-        performSubtraction(num1, num2);
-        performMultiplication(num1, num2);
-        performDivision(num1, num2);
-
-        scanner.close();
-    }
-
-    private static double getNumberFromUser(Scanner scanner, String prompt) {
-        double number;
-        while (true) {
-            System.out.print(prompt);
-            if (scanner.hasNextDouble()) {
-                number = scanner.nextDouble();
-                break;
+        double previousResult = 0;
+        boolean usingPreviousResult = false;
+        while (true) {  //loop the program as long as the user enters a character
+            double a;
+            if (usingPreviousResult) {
+                System.out.println("Using previous result: " + previousResult);
+                a = previousResult;
             } else {
-                System.out.println("Invalid input. Please enter a valid number.");
-                scanner.next(); // Clear the invalid input
+                a = getValidUserInput(input, "Enter first variable: ");
+            }
+
+
+            System.out.print("Operand or type Quit to Exit: ");
+            String operand = input.next();
+
+            if (operand.equalsIgnoreCase("sqrt")) {
+                if (a >= 0) {
+                    double result = Math.sqrt(a);
+                    System.out.println("Result= " + result);
+                    previousResult = result;
+                    System.out.print("Press 'p' if you want to use the result of this calculation for the next: ");
+                    String pResult = input.next();
+                    usingPreviousResult = pResult.equalsIgnoreCase("p");
+                } else {
+                    System.out.println("Cannot calculate root of negative values");
+                }
+            } else if (operand.equalsIgnoreCase("quit")) {
+                break;
+
+            } else {
+
+                double b = getValidUserInput(input, "Second Variable: ");
+
+
+                String result = switch (operand) {   //switch case containing all operations the computer can handle
+                    case "+" -> String.valueOf(a + b);
+                    case "-" -> String.valueOf(a - b);
+                    case "*" -> String.valueOf(a * b);
+                    case "/" -> {
+                        if (b != 0) {
+                            yield String.valueOf(a / b); // to return the value of the division of the two variables
+                        } else {
+                            yield "Error: Division by zero"; // used to handle the exception to the denominator being zero
+                        }
+                    }
+                    case "%" -> {
+                        if (b != 0) {
+                            yield String.valueOf(a % b); // to return the value of the division of the two variables
+                        } else {
+                            yield "Error: Modulus by zero"; // used to handle the exception to the denominator being zero
+
+                        }
+                    }
+                    case "^" -> String.valueOf(Math.pow(a, b));
+                    default -> "Error: Invalid operator"; // handle invalid operators entered by the user
+                };
+
+
+                System.out.println("Result: " + result);
+                previousResult = Double.parseDouble(result);
+                System.out.print("Press 'p' if you want to use the result of this calculation for the next: ");
+                String pResult = input.next();
+                usingPreviousResult = pResult.equalsIgnoreCase("p");
+
+            }
+            if (!usingPreviousResult) {
+                System.out.print("Type 'Quit' to exit the calculator or Enter any other key to continue : ");
+                input.nextLine();//typing the quit command serves as an off button for the program
+                String command = input.nextLine();
+                if (command.equalsIgnoreCase("Quit")) { //entering command exits : any other key continues running the application
+                    break; //exiting the calculator program
+
+                }
             }
         }
-        return number;
+        System.out.print("Thank you for using Faisol's calculator");
+
     }
 
-    private static void performAddition(double num1, double num2) {
-        double sum = num1 + num2;
-        System.out.printf("Addition: %.2f%n", sum);
-    }
-
-    private static void performSubtraction(double num1, double num2) {
-        double difference = num1 - num2;
-        System.out.printf("Subtraction: %.2f%n", difference);
-    }
-
-    private static void performMultiplication(double num1, double num2) {
-        double product = num1 * num2;
-        System.out.printf("Multiplication: %.2f%n", product);
-    }
-
-    private static void performDivision(double num1, double num2) {
-        if (num2 != 0) {
-            double quotient = num1 / num2;
-            System.out.printf("Division: %.2f%n", quotient);
-        } else {
-            System.out.println("Division by zero is not possible.");
+    private static double getValidUserInput(Scanner input, String promptMessage) {
+        double userInput = 0;
+        while (true) {
+            System.out.print(promptMessage);
+            if (input.hasNextDouble()) {
+                userInput = input.nextDouble();
+                break;
+            }
+            else {
+                System.out.println("Invalid input.\n Please enter a valid decimal value.");
+                input.next();
+            }
         }
+        return userInput;
     }
 }
