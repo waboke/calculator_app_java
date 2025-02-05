@@ -1,0 +1,100 @@
+Import javax.swing.*;
+Import java.awt.*;
+Import java.awt.event.ActionEvent;
+Import java.awt.event.ActionListener;
+ 
+Public class GUICalculatorForAed4 extends JFrame implements ActionListener {
+   Private JTextField display;
+   Private String operator;
+   Private double num1, num2, result;
+ 
+   Public GUICalculatorForAed4() {
+       setTitle(“GUI Calculator – Aerospace Group 4”);
+       setSize(400, 500);
+       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       setLayout(new BorderLayout());
+ 
+       // Welcome Message
+       JLabel welcomeLabel = new JLabel(“Welcome to GUI Calculator! By Aerospace Group 4”, SwingConstants.CENTER);
+       Add(welcomeLabel, BorderLayout.NORTH);
+ 
+       // Display Field
+       Display = new JTextField();
+       Display.setEditable(false);
+       Display.setFont(new Font(“Arial”, Font.BOLD, 24));
+       Add(display, BorderLayout.CENTER);
+ 
+       // Buttons Panel
+       JPanel panel = new JPanel();
+       Panel.setLayout(new GridLayout(5, 4, 5, 5));
+ 
+       String[] buttons = {
+           “7”, “8”, “9”, “/”,
+           “4”, “5”, “6”, “*”,
+           “1”, “2”, “3”, “-“,
+           “0”, “C”, “=”, “+”,
+           “^”, “%”, “√”
+       };
+ 
+       For (String text : buttons) {
+           JButton button = new JButton(text);
+           Button.setFont(new Font(“Arial”, Font.BOLD, 18));
+           Button.addActionListener(this);
+           Panel.add(button);
+       }
+ 
+       Add(panel, BorderLayout.SOUTH);
+       setVisible(true);
+   }
+ 
+   Public void actionPerformed(ActionEvent e) {
+       String command = e.getActionCommand();
+ 
+       Try {
+           If (command.matches(“[0-9]”)) {
+               Display.setText(display.getText() + command);
+           } else if (command.equals(“C”)) {
+               Display.setText(“”);
+               Num1 = num2 = result = 0;
+               Operator = “”;
+           } else if (command.equals(“=”)) {
+               Num2 = Double.parseDouble(display.getText());
+ 
+               Switch (operator) {
+                   Case “+”: result = num1 + num2; break;
+                   Case “-“: result = num1 – num2; break;
+                   Case “*”: result = num1 * num2; break;
+                   Case “/”:
+                       If (num2 != 0) result = num1 / num2;
+                       Else throw new ArithmeticException(“Cannot divide by zero.”);
+                       Break;
+                   Case “^”: result = Math.pow(num1, num2); break;
+                   Case “%”:
+                       If (num2 != 0) result = num1 % num2;
+                       Else throw new ArithmeticException(“Modulo by zero is not allowed.”);
+                       Break;
+               }
+               Display.setText(String.valueOf(result));
+           } else if (command.equals(“√”)) {
+               Num1 = Double.parseDouble(display.getText());
+               If (num1 >= 0) {
+                   Result = Math.sqrt(num1);
+                   Display.setText(String.valueOf(result));
+               } else {
+                   Display.setText(“Error: Negative Root”);
+               }
+           } else {
+               Num1 = Double.parseDouble(display.getText());
+               Operator = command;
+               Display.setText(“”);
+           }
+       } catch (Exception ex) {
+           Display.setText(“Error”);
+       }
+   }
+ 
+   Public static void main(String[] args) {
+       New GUICalculatorForAed4();
+   }
+}
+ 
