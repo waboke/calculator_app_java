@@ -1,0 +1,39 @@
+```
+import java.util.Scanner;
+
+public class StudentInfo {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter your name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter your department: ");
+        String department = scanner.nextLine();
+
+        System.out.print("Enter your age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine(); // Consume newline left-over
+
+        System.out.print("Enter your matric number: ");
+        String matricNumber = scanner.nextLine();
+
+        System.out.print("Enter your state: ");
+        String state = scanner.nextLine();
+
+        System.out.print("Enter your height (in meters): ");
+        double height = scanner.nextDouble();
+        scanner.nextLine(); // Consume newline left-over
+
+        System.out.println("\nStudent Information:");
+        System.out.println("Name: " + name);
+        System.out.println("Department: " + department);
+        System.out.println("Age: " + age);
+        System.out.println("Matric Number: " + matricNumber);
+        System.out.println("State: " + state);
+        System.out.println("Height: " + height + " meters");
+
+        scanner.close();
+    }
+}
+```
