@@ -1,0 +1,47 @@
+public class SimpleCalculator {
+    public static void main(String[] args) {
+        if (args.length != 3) {
+            System.out.println("Usage: java SimpleCalculator <num1> <operator> <num2>");
+            return;
+        }
+        
+        try {
+            double num1 = Double.parseDouble(args[0]);
+            char operator = args[1].charAt(0);
+            double num2 = Double.parseDouble(args[2]);
+            
+            double result = 0;
+            boolean validOperation = true;
+            
+            // Performing the calculation based on operator
+            switch (operator) {
+                case '+':
+                    result = num1 + num2;
+                    break;
+                case '-':
+                    result = num1 - num2;
+                    break;
+                case '*':
+                    result = num1 * num2;
+                    break;
+                case '/':
+                    if (num2 != 0) {
+                        result = num1 / num2;
+                    } else {
+                        System.out.println("Error! Division by zero is not allowed.");
+                        validOperation = false;
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid operator! Please enter one of (+, -, *, /)");
+                    validOperation = false;
+            }
+            
+            if (validOperation) {
+                System.out.println("Result: " + result);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input! Please enter numeric values for num1 and num2.");
+        }
+    }
+}
