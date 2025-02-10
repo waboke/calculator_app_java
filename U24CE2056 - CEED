@@ -1,0 +1,123 @@
+Here's a simple calculator program in Java using Swing for the user interface. This calculator will perform basic arithmetic operations: addition, subtraction, multiplication, and division.
+
+▎Simple Calculator Program in Java
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SimpleCalculator extends JFrame implements ActionListener {
+    private JTextField inputField; // For displaying input and results
+    private String operator; // To store the operator
+    private double firstNumber; // To store the first number
+
+    public SimpleCalculator() {
+        // Frame settings
+        setTitle("Simple Calculator");
+        setSize(300, 400);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Create input field
+        inputField = new JTextField();
+        inputField.setEditable(false); // Make it non-editable
+        add(inputField, BorderLayout.NORTH);
+
+        // Create buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(4, 4));
+
+        String[] buttonLabels = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "0", "C", "=", "+"
+        };
+
+        for (String label : buttonLabels) {
+            JButton button = new JButton(label);
+            button.addActionListener(this);
+            buttonPanel.add(button);
+        }
+
+        add(buttonPanel, BorderLayout.CENTER);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+
+        switch (command) {
+            case "C":
+                // Clear the input field
+                inputField.setText("");
+                break;
+            case "=":
+                // Calculate the result
+                double secondNumber = Double.parseDouble(inputField.getText());
+                double result = calculate(firstNumber, secondNumber, operator);
+                inputField.setText(String.valueOf(result));
+                break;
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+                // Store the first number and operator
+                firstNumber = Double.parseDouble(inputField.getText());
+                operator = command;
+                inputField.setText(""); // Clear for next number
+                break;
+            default:
+                // Append the pressed number to the input field
+                inputField.setText(inputField.getText() + command);
+                break;
+        }
+    }
+
+    private double calculate(double firstNum, double secondNum, String operator) {
+        switch (operator) {
+            case "+":
+                return firstNum + secondNum;
+            case "-":
+                return firstNum - secondNum;
+            case "*":
+                return firstNum * secondNum;
+            case "/":
+                if (secondNum != 0) {
+                    return firstNum / secondNum;
+                } else {
+                    JOptionPane.showMessageDialog(this, "Cannot divide by zero", "Error", JOptionPane.ERROR_MESSAGE);
+                    return 0;
+                }
+            default:
+                return 0;
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            SimpleCalculator calculator = new SimpleCalculator();
+            calculator.setVisible(true);
+        });
+    }
+}
+
+
+▎Explanation of the Code
+
+1. Imports: The necessary Swing components and layout managers are imported.
+
+2. SimpleCalculator Class: This class extends JFrame and implements ActionListener to handle button clicks.
+
+3. Constructor:
+
+   • Sets up the frame's title, size, and default close operation.
+
+   • Initializes a JTextField for displaying input and results.
+
+   • Creates a grid of buttons for numbers and operations.
+
+4. Action Handling:
+
+   • The actionPerformed method processes button clicks:
