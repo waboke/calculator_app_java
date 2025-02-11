@@ -1,0 +1,66 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SimpleCalculator extends JFrame implements ActionListener {
+    // Create components
+    private JTextField display;
+    private JButton[] numberButtons;
+    private JButton addButton, subButton, mulButton, divButton, equalButton, clearButton;
+    private String operator;
+    private double num1, num2, result;
+
+    public SimpleCalculator() {
+        // Set up the frame
+        setTitle("Simple Calculator");
+        setSize(400, 600);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Create display
+        display = new JTextField();
+        display.setEditable(false);
+        display.setFont(new Font("Arial", Font.PLAIN, 24));
+        add(display, BorderLayout.NORTH);
+
+        // Create buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(4, 4, 10, 10));
+
+        numberButtons = new JButton[10];
+        for (int i = 0; i < 10; i++) {
+            numberButtons[i] = new JButton(String.valueOf(i));
+            numberButtons[i].addActionListener(this);
+            buttonPanel.add(numberButtons[i]);
+        }
+
+        addButton = new JButton("+");
+        subButton = new JButton("-");
+        mulButton = new JButton("*");
+        divButton = new JButton("/");
+        equalButton = new JButton("=");
+        clearButton = new JButton("C");
+
+        // Add action listeners
+        addButton.addActionListener(this);
+        subButton.addActionListener(this);
+        mulButton.addActionListener(this);
+        divButton.addActionListener(this);
+        equalButton.addActionListener(this);
+        clearButton.addActionListener(this);
+
+        // Add operator buttons to the panel
+        buttonPanel.add(addButton);
+        buttonPanel.add(subButton);
+        buttonPanel.add(mulButton);
+        buttonPanel.add(divButton);
+        buttonPanel.add(equalButton);
+        buttonPanel.add(clearButton);
+
+        // Add button panel to the frame
+        add(buttonPanel, BorderLayout.CENTER);
+    }
+
+    @Override
+    public void action
