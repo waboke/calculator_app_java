@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ChisomCalculator {
+public class Prince-Joseph Calculator {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
