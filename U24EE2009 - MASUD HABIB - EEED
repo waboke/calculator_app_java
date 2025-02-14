@@ -1,0 +1,124 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class SimpleCalculator extends JFrame implements ActionListener {
+
+    private JTextField display; // For displaying numbers and results
+    private JButton[] numberButtons; // Array for number buttons (0-9)
+    private JButton addButton, subButton, mulButton, divButton, eqButton, clearButton;
+    private double num1, num2, result; // Store operands and result
+    private char operator; // Store the selected operator
+
+    public SimpleCalculator() {
+        // --- Frame Setup ---
+        setTitle("Simple Calculator");
+        setSize(300, 400);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout()); // Use BorderLayout for overall structure
+
+        // --- Display Field ---
+        display = new JTextField();
+        display.setEditable(false); // User can't directly type into display
+        display.setHorizontalAlignment(JTextField.RIGHT); // Align text to the right
+        display.setFont(new Font("Arial", Font.PLAIN, 24)); // Set a good font
+        add(display, BorderLayout.NORTH); // Place display at the top
+
+        // --- Number and Operation Button Panel ---
+        JPanel buttonPanel = new JPanel(new GridLayout(4, 4, 5, 5)); // 4x4 grid layout
+        numberButtons = new JButton[10];
+        for (int i = 0; i < 10; i++) {
+            numberButtons[i] = new JButton(String.valueOf(i));
+            numberButtons[i].addActionListener(this); // Make buttons action listeners
+            buttonPanel.add(numberButtons[i]);
+        }
+
+        addButton = new JButton("+");
+        subButton = new JButton("-");
+        mulButton = new JButton("*");
+        divButton = new JButton("/");
+        eqButton = new JButton("=");
+        clearButton = new JButton("C");
+
+        JButton[] operatorButtons = {addButton, subButton, mulButton, divButton, eqButton, clearButton};
+        for (JButton button : operatorButtons) {
+            button.addActionListener(this);
+            buttonPanel.add(button);
+        }
+        
+        add(buttonPanel, BorderLayout.CENTER); // Add button panel in the center
+
+        setVisible(true); // Display the frame
+    }
+
+
+    // --- Action Handling ---
+    @Override
+    public void actionPerformed(ActionEvent e) {
+       String command = e.getActionCommand();
+
+        // Number Button Handling
+        for(int i = 0; i <= 9; i++) {
+if (command.equals(String.valueOf(i))){
+             display.setText(display.getText() + i);
+             return; //exit early
+           }
+        }
+
+        // Operation Handling
+        switch(command){
+            case "+":
+            case "-":
+            case "*":
+            case "/":
+                if(!display.getText().isEmpty()) {
+                  num1 = Double.parseDouble(display.getText());
+                  operator = command.charAt(0);
+                  display.setText("");
+                }
+                break;
+            case "=":
+                if (!display.getText().isEmpty()) {
+                 num2 = Double.parseDouble(display.getText());
+                  try {
+                    result = calculateResult();
+                    display.setText(String.valueOf(result));
+                  } catch (ArithmeticException ex) {
+                    display.setText("Error");
+                  }
+                 
+                 num1 = result;
+                 operator = '\0'; // clear after calculation
+                }
+                break;
+            case "C":
+                display.setText("");
+                num1 = 0;
+                num2 = 0;
+                operator = '\0'; // reset operator
+                result = 0;
+                 break;
+
+        }
+
+    }
+
+    private double calculateResult() {
+      if(operator == '+') return num1 + num2;
+      if(operator == '-') return num1 - num2;
+      if(operator == '*') return num1 * num2;
+      if(operator == '/') {
+          if (num2 == 0) {
+            throw new ArithmeticException("Cannot divide by zero."); // Handle division by zero
+          }
+          return num1 / num2;
+        }
+      return 0; // Handle invalid operator or error scenario
+    }
+
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new SimpleCalculator());
+    }
+}
