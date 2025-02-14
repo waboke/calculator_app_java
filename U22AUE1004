@@ -1,0 +1,65 @@
+import java.util.Scanner; // Import Scanner for user input
+
+public class ArithmeticCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the first number: ");
+        double num1 = scanner.nextDouble(); // Allowing floating-point inputs for flexibility
+
+        System.out.print("Enter the second number: ");
+        double num2 = scanner.nextDouble();
+
+        System.out.println("\nSelect an operation:");
+        System.out.println("1. Addition");
+        System.out.println("2. Subtraction");
+        System.out.println("3. Multiplication");
+        System.out.println("4. Division");
+        System.out.println("5. Modulus (Remainder)");
+        System.out.println("6. Power");
+        System.out.println("7. Exit");
+
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+
+        // Perform operations based on the user's choice
+        switch (choice) {
+            case 1:
+                System.out.println("The result is: " + (num1 + num2));
+                break;
+            case 2:
+                System.out.println("The result is: " + (num1 - num2));
+                break;
+            case 3:
+                System.out.println("The result is: " + (num1 * num2));
+                break;
+            case 4:
+                // Handle division by zero
+                if (num2 != 0) {
+                    System.out.println("The result is: " + (num1 / num2));
+                } else {
+                    System.out.println("Error: Division by zero is undefined.");
+                }
+                break;
+            case 5:
+                // Handle modulus operation
+                if (num2 != 0) {
+                    System.out.println("The result is: " + (num1 % num2));
+                } else {
+                    System.out.println("Error: Modulus by zero is undefined.");
+                }
+                break;
+            case 6:
+                System.out.println("The result is: " + Math.pow(num1, num2));
+                break;
+            case 7:
+                System.out.println("Thank you for using the calculator. Goodbye!");
+                break;
+            default:
+                System.out.println("Invalid choice. Please try again.");
+                break;
+        }
+
+        scanner.close(); // Close scanner to free resources
+    }
+}
