@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class BasicCalculator {
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in); // Create a Scanner object to read user input
+
+        System.out.println("Welcome to the Basic Command Line Calculator!");
+        System.out.println("This calculator supports the following operations: +, -, *, /");
+
+        // Prompt the user for the first number
+        System.out.print("Enter the first number: ");
+        double num1 = scanner.nextDouble();
+
+        // Prompt the user for the operator
+        System.out.print("Enter the operator (+, -, *, /): ");
+        char operator = scanner.next().charAt(0);
+
+        // Prompt the user for the second number
+        System.out.print("Enter the second number: ");
+        double num2 = scanner.nextDouble();
+
+        double result = 0; // Variable to store the result of the calculation
+        boolean isValidOperation = true; // Flag to check if the operation is valid
+
+        // Perform the calculation based on the operator
+        switch (operator) {
+            case '+':
+                result = num1 + num2; // Addition
+                break;
+            case '-':
+                result = num1 - num2; // Subtraction
+                break;
+            case '*':
+                result = num1 * num2; // Multiplication
+                break;
+            case '/':
+                if (num2 != 0) {
+                    result = num1 / num2; // Division
+                } else {
+                    System.out.println("Error: Division by zero is not allowed.");
+                    isValidOperation = false;
+                }
+                break;
+            default:
+                System.out.println("Error: Invalid operator. Please use one of +, -, *, /.");
+                isValidOperation = false;
+                break;
+        }
+
+        // Display the result if the operation was valid
+        if (isValidOperation) {
+            System.out.println("Result: " + num1 + " " + operator + " " + num2 + " = " + result);
+        }
+
+        scanner.close(); // Close the scanner
+    }
+}
