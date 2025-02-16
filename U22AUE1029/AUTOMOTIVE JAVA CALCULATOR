@@ -1,0 +1,61 @@
+import java.util.Scanner; // Missing import statement for Scanner
+
+public class ArithmeticCalculator {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int num1 = 17;
+        int num2 = 3;
+
+        // Handling division correctly by using double for precision
+        int addition = num1 + num2;
+        int subtraction = num1 - num2;
+        int multiplication = num1 * num2;
+        double division = (double) num1 / num2; // Explicit casting to get accurate division result
+        int modulus = num1 % num2;
+        double power = Math.pow(num1, num2);
+
+        // Display menu
+        System.out.println("1. Addition (sum)");
+        System.out.println("2. Subtraction (difference)");
+        System.out.println("3. Multiplication (product)"); // Fixed "products" to "product"
+        System.out.println("4. Division");
+        System.out.println("5. Modulus");
+        System.out.println("6. Power");
+        System.out.println("7. Exit");
+
+        // Take user input
+        System.out.print("Enter your choice: ");
+        int choice = scanner.nextInt();
+
+        // Using switch case to process the user's choice
+        switch (choice) {
+            case 1:
+                System.out.println("The result is: " + addition);
+                break;
+            case 2:
+                System.out.println("The result is: " + subtraction);
+                break;
+            case 3:
+                System.out.println("The result is: " + multiplication);
+                break;
+            case 4:
+                System.out.println("The result is: " + division); // Using double for precision
+                break;
+            case 5:
+                System.out.println("The result is: " + modulus);
+                break;
+            case 6:
+                System.out.println("The result is: " + power);
+                break;
+            case 7:
+                System.out.println("Thank you for using the calculator. Goodbye!");
+                break;
+            default:
+                System.out.println("Invalid choice. Please enter a number between 1 and 7.");
+                break;
+        }
+
+        scanner.close();
+    }
+}
